@@ -1,0 +1,15 @@
+{
+  "name": "xylonet-mainnet-safe",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "XyloNet mainnet Safe multisig deployment tooling (Arc chain 5042)",
+  "scripts": {
+    "preflight": "node preflight.mjs",
+    "deploy": "node deploy-safes.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "viem": "^2.21.0"
+  }
+}

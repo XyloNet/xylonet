@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayX - Tip on X</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="icons/icon48.png" alt="XyloNet" width="28" height="28" />
+        </div>
+        <span class="logo-text">PayX</span>
+        <span class="logo-chip">Arc</span>
+      </div>
+      <div id="network-status" class="status-badge">
+        <span class="status-dot"></span>
+        <span>Live</span>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="main-content">
+      <!-- Not connected -->
+      <div id="connect-view" class="view">
+        <div class="connect-card">
+          <div class="connect-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+              <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+              <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+            </svg>
+          </div>
+          <h2>Connect your wallet</h2>
+          <p>Tip creators on X with USDC on Arc. One click from any post.</p>
+          <button id="connect-btn" class="btn-primary">Connect wallet</button>
+          <p class="hint">Works with MetaMask on x.com.</p>
+        </div>
+      </div>
+
+      <!-- Connected -->
+      <div id="wallet-view" class="view hidden">
+        <!-- Balance -->
+        <div class="balance-card">
+          <div class="balance-label">
+            <svg width="16" height="16" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="16" cy="16" r="16" fill="#2775CA"/>
+              <path d="M20.5 18.5c0-2-1.2-2.7-3.6-3-.2 0-.4-.1-.6-.1-1.7-.3-2.1-.7-2.1-1.5 0-.9.7-1.4 2-1.4 1.1 0 1.8.4 2.1 1.2.1.2.2.3.4.3h.9c.3 0 .5-.2.4-.4-.3-1.3-1.3-2.2-2.7-2.4v-1.4c0-.3-.2-.4-.5-.4h-.8c-.3 0-.5.2-.5.4v1.4c-1.8.3-3 1.4-3 3 0 1.9 1.2 2.6 3.6 3 .2 0 .4.1.5.1 1.6.3 2.2.7 2.2 1.6 0 1-.9 1.6-2.2 1.6-1.5 0-2.1-.6-2.4-1.4-.1-.2-.2-.3-.4-.3h-1c-.3 0-.4.2-.4.4.3 1.5 1.4 2.5 3.1 2.8v1.4c0 .3.2.4.5.4h.8c.3 0 .5-.2.5-.4v-1.4c1.9-.3 3.2-1.4 3.2-3.1z" fill="white"/>
+            </svg>
+            <span>Available balance</span>
+          </div>
+          <div class="balance-amount">
+            <span class="balance-symbol">$</span>
+            <span id="balance-value">0.00</span>
+            <span class="balance-currency">USDC</span>
+          </div>
+        </div>
+
+        <!-- Wallet -->
+        <div class="wallet-info">
+          <div class="wallet-label">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="12" cy="12" r="12"/>
+            </svg>
+            Connected wallet
+          </div>
+          <div class="wallet-address" id="wallet-address">0x0000...0000</div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button id="bridge-btn" class="btn-secondary">Get USDC on Arc</button>
+          <button id="disconnect-btn" class="btn-outline">Disconnect</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Tips sent</div>
+            <div class="stat-value" id="tips-sent">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Total tipped</div>
+            <div class="stat-value" id="total-tipped">$0</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="https://www.xylonet.xyz/pay/creator" target="_blank" rel="noopener">Claim tips</a>
+        <span class="divider"></span>
+        <a href="https://www.xylonet.xyz/pay/creator?tab=history" target="_blank" rel="noopener">Tip history</a>
+        <span class="divider"></span>
+        <a href="https://www.xylonet.xyz/pay" target="_blank" rel="noopener">About PayX</a>
+      </div>
+      <div class="footer-brand">Built on Arc by <strong>XyloNet</strong></div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

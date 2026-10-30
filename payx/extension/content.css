@@ -1,0 +1,507 @@
+/* PayX content script - XyloNet design system.
+   Scoped to .payx-* / #payx-modal so nothing leaks into x.com.
+   Light-first; dark values under prefers-color-scheme: dark. */
+
+.payx-tip-btn,
+#payx-modal {
+  --payx-paper: #f4f1ea;
+  --payx-surface: #fffdf8;
+  --payx-surface-2: #ece7dd;
+  --payx-ink: #121212;
+  --payx-ink-2: #4b4740;
+  --payx-ink-3: #6b665d;
+  --payx-mint: #e8461b;
+  --payx-mint-hover: #00b07f;
+  --payx-mint-ink: #121212;
+  --payx-mint-deep: #b9350f;
+  --payx-mint-tint: rgba(1, 195, 141, 0.12);
+  --payx-teal: #b9350f;
+  --payx-ok: #b9350f;
+  --payx-border: rgba(18, 18, 18, 0.10);
+  --payx-line-2: rgba(20, 24, 31, 0.18);
+  --payx-overlay: rgba(20, 24, 31, 0.48);
+  --payx-shadow: 0 2px 6px rgba(20, 24, 31, 0.08), 0 24px 56px rgba(20, 24, 31, 0.14);
+  --payx-r-chip: 6px;
+  --payx-r-control: 10px;
+  --payx-r-card: 14px;
+  --payx-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --payx-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --payx-ease: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .payx-tip-btn,
+  #payx-modal {
+    --payx-paper: #0f0e0c;
+    --payx-surface: #171512;
+    --payx-surface-2: #221f1b;
+    --payx-ink: #f1ece2;
+    --payx-ink-2: #b8b0a3;
+    --payx-ink-3: #8c8477;
+    --payx-mint-deep: #ff6e45;
+    --payx-mint-tint: rgba(1, 195, 141, 0.16);
+    --payx-teal: #ff6e45;
+    --payx-ok: #ff6e45;
+    --payx-border: rgba(241, 236, 226, 0.10);
+    --payx-line-2: rgba(255, 255, 255, 0.16);
+    --payx-overlay: rgba(0, 0, 0, 0.6);
+    --payx-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 24px 56px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* Tip trigger under each post */
+
+.payx-tip-btn {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.payx-tip-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px;
+  background: var(--payx-mint);
+  color: var(--payx-mint-ink);
+  border: none;
+  border-radius: var(--payx-r-chip);
+  font-family: var(--payx-font);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s var(--payx-ease);
+}
+
+.payx-tip-trigger:hover {
+  background: var(--payx-mint-hover);
+}
+
+.payx-tip-trigger:active {
+  background: var(--payx-mint-deep);
+  color: #fffdf8;
+}
+
+.payx-tip-trigger:focus-visible {
+  outline: 2px solid var(--payx-mint);
+  outline-offset: 2px;
+}
+
+.payx-tip-trigger svg {
+  flex: none;
+}
+
+/* Modal */
+
+#payx-modal .payx-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--payx-overlay);
+  z-index: 999998;
+  animation: payxFade 0.15s var(--payx-ease);
+}
+
+@keyframes payxFade {
+  from { opacity: 0; }
+}
+
+#payx-modal .payx-modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 92vw;
+  background: var(--payx-surface);
+  color: var(--payx-ink);
+  border: 1px solid var(--payx-border);
+  border-radius: var(--payx-r-card);
+  box-shadow: var(--payx-shadow);
+  z-index: 999999;
+  overflow: hidden;
+  font-family: var(--payx-font);
+  font-size: 14px;
+  line-height: 1.5;
+  animation: payxEnter 0.18s var(--payx-ease);
+}
+
+@keyframes payxEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+}
+
+#payx-modal * {
+  box-sizing: border-box;
+}
+
+#payx-modal button {
+  font-family: inherit;
+}
+
+#payx-modal button:focus-visible,
+#payx-modal a:focus-visible,
+#payx-modal input:focus-visible,
+#payx-modal textarea:focus-visible {
+  outline: 2px solid var(--payx-mint);
+  outline-offset: 2px;
+}
+
+/* Header */
+
+#payx-modal .payx-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--payx-border);
+}
+
+#payx-modal .payx-modal-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--payx-border);
+  background: #f4f1ea;
+  flex: none;
+}
+
+#payx-modal .payx-modal-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#payx-modal .payx-modal-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--payx-ink);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#payx-modal .payx-modal-header h2 .payx-handle {
+  font-family: var(--payx-mono);
+  font-weight: 500;
+  color: var(--payx-ink-2);
+}
+
+#payx-modal .payx-modal-close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--payx-border);
+  border-radius: 8px;
+  color: var(--payx-ink-3);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s var(--payx-ease), color 0.15s var(--payx-ease);
+  flex: none;
+}
+
+#payx-modal .payx-modal-close:hover {
+  background: var(--payx-surface-2);
+  color: var(--payx-ink);
+}
+
+/* Body */
+
+#payx-modal .payx-modal-body {
+  padding: 20px;
+}
+
+#payx-modal .payx-connect-prompt {
+  text-align: center;
+  padding: 16px 0 8px;
+}
+
+#payx-modal .payx-connect-prompt p {
+  margin: 0 auto 18px;
+  max-width: 260px;
+  color: var(--payx-ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#payx-modal .payx-connect-btn,
+#payx-modal .payx-send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px;
+  background: var(--payx-mint);
+  color: var(--payx-mint-ink);
+  border: 1px solid transparent;
+  border-radius: var(--payx-r-control);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s var(--payx-ease);
+}
+
+#payx-modal .payx-connect-btn:hover:not(:disabled),
+#payx-modal .payx-send-btn:hover:not(:disabled) {
+  background: var(--payx-mint-hover);
+}
+
+#payx-modal .payx-connect-btn:disabled,
+#payx-modal .payx-send-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+#payx-modal .payx-send-btn {
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Amount selector */
+
+#payx-modal .payx-amount-label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--payx-ink-3);
+}
+
+#payx-modal .payx-amounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#payx-modal .payx-amount-btn {
+  min-height: 40px;
+  padding: 0 8px;
+  background: var(--payx-surface-2);
+  border: 1px solid transparent;
+  border-radius: var(--payx-r-control);
+  color: var(--payx-ink);
+  font-family: var(--payx-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s var(--payx-ease), border-color 0.15s var(--payx-ease);
+}
+
+#payx-modal .payx-amount-btn:hover {
+  border-color: var(--payx-line-2);
+}
+
+#payx-modal .payx-amount-btn.selected {
+  background: var(--payx-mint-tint);
+  border-color: var(--payx-mint);
+  color: var(--payx-ink);
+}
+
+#payx-modal .payx-custom-amount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 12px;
+  background: var(--payx-surface);
+  border: 1px solid var(--payx-line-2);
+  border-radius: var(--payx-r-control);
+  margin-bottom: 12px;
+  transition: border-color 0.15s var(--payx-ease), box-shadow 0.15s var(--payx-ease);
+}
+
+#payx-modal .payx-custom-amount:focus-within {
+  border-color: var(--payx-mint);
+  box-shadow: 0 0 0 3px var(--payx-mint-tint);
+}
+
+#payx-modal .payx-custom-amount input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: var(--payx-ink);
+  font-family: var(--payx-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+#payx-modal .payx-custom-amount input::-webkit-outer-spin-button,
+#payx-modal .payx-custom-amount input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#payx-modal .payx-custom-amount input::placeholder {
+  color: var(--payx-ink-3);
+  font-family: var(--payx-font);
+  font-weight: 400;
+}
+
+#payx-modal .payx-custom-amount span {
+  color: var(--payx-ink-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Message */
+
+#payx-modal .payx-message {
+  margin-bottom: 16px;
+}
+
+#payx-modal .payx-message textarea {
+  display: block;
+  width: 100%;
+  height: 80px;
+  padding: 10px 12px;
+  background: var(--payx-surface);
+  border: 1px solid var(--payx-line-2);
+  border-radius: var(--payx-r-control);
+  color: var(--payx-ink);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s var(--payx-ease), box-shadow 0.15s var(--payx-ease);
+}
+
+#payx-modal .payx-message textarea::placeholder {
+  color: var(--payx-ink-3);
+}
+
+#payx-modal .payx-message textarea:focus {
+  border-color: var(--payx-mint);
+  box-shadow: 0 0 0 3px var(--payx-mint-tint);
+}
+
+/* Success */
+
+#payx-modal .payx-success {
+  text-align: center;
+  padding: 16px 0 8px;
+}
+
+#payx-modal .payx-success-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--payx-mint-tint);
+  color: var(--payx-ok);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#payx-modal .payx-success h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--payx-ink);
+}
+
+#payx-modal .payx-success p {
+  margin: 0 0 18px;
+  color: var(--payx-ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#payx-modal .payx-success .payx-amount {
+  font-family: var(--payx-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--payx-ink);
+}
+
+#payx-modal .payx-success-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#payx-modal .payx-success a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  color: var(--payx-teal);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--payx-border);
+  border-radius: var(--payx-r-control);
+  transition: background-color 0.15s var(--payx-ease), border-color 0.15s var(--payx-ease);
+}
+
+#payx-modal .payx-success a:hover {
+  background: var(--payx-mint-tint);
+  border-color: var(--payx-mint);
+}
+
+/* Footer */
+
+#payx-modal .payx-modal-footer {
+  padding: 12px 20px;
+  background: var(--payx-paper);
+  border-top: 1px solid var(--payx-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--payx-ink-3);
+}
+
+#payx-modal .payx-modal-footer strong {
+  font-weight: 600;
+  color: var(--payx-ink-2);
+}
+
+/* Spinner (kept for any loading state the script toggles) */
+
+#payx-modal .payx-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--payx-border);
+  border-top-color: var(--payx-mint-ink);
+  border-radius: 50%;
+  animation: payxSpin 0.8s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes payxSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #payx-modal .payx-modal-overlay,
+  #payx-modal .payx-modal-content {
+    animation: none;
+  }
+}

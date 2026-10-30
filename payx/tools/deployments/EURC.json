@@ -1,0 +1,10 @@
+{
+  "asset": "EURC",
+  "symbol": "EURC",
+  "token": "0xbEf5f6d51CB62b58e6A8f77868681825C6fe21c1",
+  "address": "0xb9e6b729425db5565e8cafce6d35e820fae7d1ca",
+  "deployTx": "0x3a5056b34207ef00bdc52c0185e4a364794e8a5406b36fc77ee89e7514e0a03e",
+  "block": 24213517,
+  "minTip": "0.1",
+  "handoverTx": "0x142a0e11ab2b10a6f553a8ad457af8da55e01e28c54ab835097d60367390ac78"
+}

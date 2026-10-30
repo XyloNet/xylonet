@@ -1,0 +1,28 @@
+// Generates the icon set from the brand mark. Run: node scripts/make-icons.mjs
+import sharp from 'sharp'
+import { writeFileSync } from 'node:fs'
+
+const PATH = 'M2538.1 1055.9l1479.46 -715.71 -166.6 -340.19 -1126.78 552.82c-235.86,115.75 -492.16,192.18 -701.88,191 -164.65,-0.96 -295.98,-51.56 -323.95,-170.56l-116.03 -493.5 -556.29 282.66 112.2 666 1399.86 27.47zm-1773.36 1151.56l963.73 482.99 1300.68 -612.25 -284 -878.16 -1447.28 -40.03 -1297.87 638.84 19.28 378.55 1054.63 -511.97c230.79,-112.04 482.89,-182.62 694.24,-171.7 173.79,8.98 319.39,74.98 356,221.52l84.82 339.56 -499.09 245.66 -534.44 -292.38 -410.7 199.38z'
+const GRAD = ''
+
+// mark centred in a square; `pad` = fraction of side left as margin
+function svg(size, { bg = null, pad = 0.14, radius = 0 } = {}) {
+  const inner = size * (1 - pad * 2)
+  const scale = inner / 4017.56
+  const h = 2690.46 * scale
+  const tx = size * pad
+  const ty = (size - h) / 2
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><defs>${GRAD}</defs>${bg ? `<rect width="${size}" height="${size}" rx="${radius}" fill="${bg}"/>` : ''}<g transform="translate(${tx} ${ty}) scale(${scale})"><path d="${PATH}" fill="#e8461b"/></g></svg>`
+}
+
+const out = async (file, size, opts) => {
+  await sharp(Buffer.from(svg(size, opts))).png().toFile(file)
+  console.log('wrote', file)
+}
+await out('public/icon-192.png', 192, { bg: '#f4f1ea', radius: 40 })
+await out('public/icon-512.png', 512, { bg: '#f4f1ea', radius: 108 })
+await out('public/icon-maskable-512.png', 512, { bg: '#f4f1ea', pad: 0.24 })
+await out('src/app/icon.png', 64, { bg: '#f4f1ea', radius: 14, pad: 0.12 })
+await out('src/app/apple-icon.png', 180, { bg: '#f4f1ea', pad: 0.16 })
+writeFileSync('public/mark.svg', svg(64, { pad: 0.02 }))
+console.log('done')

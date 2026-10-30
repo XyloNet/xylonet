@@ -1,0 +1,20 @@
+{
+  "name": "xylonet-payx-mainnet-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PayX v2 mainnet deployment ceremony tooling (Arc chain 5042) — see docs/05-PAYX-DEPLOYMENT-RUNBOOK.md",
+  "scripts": {
+    "keygen": "node keygen.mjs",
+    "preflight": "node preflight.mjs",
+    "deploy": "node deploy.mjs",
+    "assert": "node postdeploy-assert.mjs",
+    "smoke": "node smoke.mjs",
+    "handover": "node handover.mjs",
+    "status": "node status.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "viem": "^2.21.0"
+  }
+}

@@ -1,0 +1,22 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+optimizer = true
+optimizer_runs = 200
+solc_version = "0.8.30"
+evm_version = "cancun"
+
+# Arc MAINNET only — chain 5042. Testnet must never appear in this repo.
+[rpc_endpoints]
+arc_mainnet = "${ARC_MAINNET_RPC_URL}"
+
+[fuzz]
+runs = 512
+
+# Handler-based invariant suite (test/PayXTipping.invariant.t.sol).
+# fail_on_revert: handlers bound their inputs, so any unexpected revert is a real finding.
+[invariant]
+runs = 256
+depth = 50
+fail_on_revert = true

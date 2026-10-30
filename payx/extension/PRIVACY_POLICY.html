@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayX Extension - Privacy Policy</title>
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --surface: #fffdf8;
+      --surface-2: #ece7dd;
+      --ink: #121212;
+      --ink-2: #4b4740;
+      --ink-3: #6b665d;
+      --mint: #e8461b;
+      --teal: #b9350f;
+      --border: rgba(18, 18, 18, 0.10);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0f0e0c;
+        --surface: #171512;
+        --surface-2: #221f1b;
+        --ink: #f1ece2;
+        --ink-2: #b8b0a3;
+        --ink-3: #8c8477;
+        --teal: #ff6e45;
+        --border: rgba(241, 236, 226, 0.10);
+        color-scheme: dark;
+      }
+    }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    h2 { font-size: 18px; font-weight: 600; color: var(--ink); margin-top: 30px; }
+    a { color: var(--teal); }
+    .last-updated { color: var(--ink-3); font-size: 14px; margin-bottom: 30px; }
+    ul { margin: 10px 0; padding-left: 25px; }
+    li { margin: 8px 0; }
+    .highlight { background: var(--surface); border: 1px solid var(--border); padding: 15px; border-radius: 14px; margin: 15px 0; }
+  </style>
+</head>
+<body>
+  <h1>PayX Extension Privacy Policy</h1>
+  <p class="last-updated">Last Updated: January 2026</p>
+
+  <h2>Introduction</h2>
+  <p>PayX ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how our Chrome browser extension ("PayX Extension" or "Extension") collects, uses, and safeguards your information.</p>
+
+  <h2>Information We Collect</h2>
+  <p>The PayX Extension collects minimal data necessary to provide its functionality:</p>
+  
+  <div class="highlight">
+    <strong>Data Stored Locally (on your device only):</strong>
+    <ul>
+      <li><strong>Wallet Address:</strong> Your connected wallet's public address (stored locally in Chrome storage)</li>
+      <li><strong>Tip Statistics:</strong> Number of tips sent and total amount tipped (stored locally)</li>
+    </ul>
+  </div>
+
+  <h2>Information We Do NOT Collect</h2>
+  <ul>
+    <li>We do NOT collect personal identification information</li>
+    <li>We do NOT collect browsing history</li>
+    <li>We do NOT collect Twitter/X account information</li>
+    <li>We do NOT track your activity across websites</li>
+    <li>We do NOT send any data to external servers (except blockchain transactions)</li>
+  </ul>
+
+  <h2>How We Use Information</h2>
+  <p>The locally stored information is used solely to:</p>
+  <ul>
+    <li>Display your connected wallet address in the extension popup</li>
+    <li>Show your tipping statistics</li>
+    <li>Maintain your wallet connection state between browser sessions</li>
+  </ul>
+
+  <h2>Blockchain Transactions</h2>
+  <p>When you send a tip, the following data is transmitted onchain to Arc:</p>
+  <ul>
+    <li>Your wallet address (sender)</li>
+    <li>The recipient's Twitter/X handle (for tip identification)</li>
+    <li>The tip amount</li>
+    <li>Any message you include with the tip</li>
+  </ul>
+  <p><strong>Note:</strong> Blockchain transactions are public and permanent. This is inherent to blockchain technology and not specific to our extension.</p>
+
+  <h2>Third-Party Services</h2>
+  <p>The Extension interacts with:</p>
+  <ul>
+    <li><strong>MetaMask:</strong> For wallet connection and transaction signing (governed by MetaMask's privacy policy)</li>
+    <li><strong>Arc:</strong> For processing onchain transactions (governed by Arc's privacy policy)</li>
+    <li><strong>X/Twitter:</strong> The Extension adds UI elements to X.com pages (governed by X's privacy policy)</li>
+  </ul>
+
+  <h2>Data Security</h2>
+  <p>All data is stored locally in your browser using Chrome's secure storage API. We do not have access to your data. Your private keys never leave your MetaMask wallet.</p>
+
+  <h2>Data Retention and Deletion</h2>
+  <p>You can delete all locally stored data by:</p>
+  <ul>
+    <li>Clicking "Disconnect" in the extension popup</li>
+    <li>Uninstalling the extension</li>
+    <li>Clearing Chrome's extension storage</li>
+  </ul>
+
+  <h2>Children's Privacy</h2>
+  <p>The Extension is not intended for users under the age of 18. We do not knowingly collect information from children.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. Changes will be reflected in the "Last Updated" date above.</p>
+
+  <h2>Contact Us</h2>
+  <p>If you have questions about this Privacy Policy, please contact us at:</p>
+  <ul>
+    <li>Email: forgelabs@xylonet.xyz</li>
+    <li>Website: https://www.xylonet.xyz/pay</li>
+  </ul>
+
+  <h2>Permissions Explained</h2>
+  <p>The Extension requests the following permissions:</p>
+  <ul>
+    <li><strong>storage:</strong> To save your wallet connection state and tip statistics locally</li>
+    <li><strong>activeTab:</strong> To interact with the current tab when you click the extension</li>
+    <li><strong>tabs:</strong> To detect when you're on X.com/Twitter.com</li>
+    <li><strong>scripting:</strong> To inject tip buttons into X.com pages</li>
+    <li><strong>Host permissions (x.com, twitter.com):</strong> To add tipping functionality to these sites</li>
+  </ul>
+</body>
+</html>

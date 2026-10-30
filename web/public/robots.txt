@@ -1,0 +1,11 @@
+# XyloNet Robots.txt
+# https://www.xylonet.xyz
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://www.xylonet.xyz/sitemap.xml
+
+# XyloNet - Stablecoin SuperExchange on Arc mainnet (chain 5042)

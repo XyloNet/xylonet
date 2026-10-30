@@ -1,0 +1,10 @@
+{
+  "asset": "CIRBTC",
+  "symbol": "cirBTC",
+  "token": "0x171A4217b86A807A64eB94757Db6849fb4bDbAA0",
+  "address": "0x1de44961059a0e4516ff56379eb77b1c4da62f87",
+  "deployTx": "0x2d73dddb179db49c95d0a9060abad3b2ce0249cbe40ddc46b0bee57ed556e4c5",
+  "block": 24213560,
+  "minTip": "0.000001",
+  "handoverTx": "0xc3a1e1cdbb2d7418b0437f39b43004215637a538e152771409770a7ee9fe6315"
+}

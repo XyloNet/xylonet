@@ -1,0 +1,311 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Theme attribute is set on <html data-theme="light|dark"> by next-themes
+   (system preference resolved on the client before paint). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* =============================================================================
+   XyloNet identity v3: bone paper, ink, and one hot signal colour (vermilion)
+   for anything that moves money. Display serif Fraunces, UI Instrument Sans,
+   data Geist Mono. Light-first; dark values under [data-theme="dark"].
+   ========================================================================== */
+:root {
+  /* shadcn semantic layer */
+  --background: #f4f1ea;
+  --foreground: #121212;
+  --card: #fffdf8;
+  --card-foreground: #121212;
+  --popover: #fffdf8;
+  --popover-foreground: #121212;
+  --primary: #121212;
+  --primary-foreground: #f4f1ea;
+  --secondary: #ece7dd;
+  --secondary-foreground: #121212;
+  --muted: #ece7dd;
+  --muted-foreground: #6b665d;
+  --accent: #e8e2d6;
+  --accent-foreground: #121212;
+  --destructive: #b3261e;
+  --border: rgba(18, 18, 18, 0.1);
+  --input: rgba(18, 18, 18, 0.18);
+  --ring: #e8461b;
+  --radius: 10px;
+
+  /* XyloNet layer */
+  --ink-2: #4b4740;
+  --ink-3: #6b665d;
+  --surface-2: #ece7dd;
+  --signal: #e8461b;
+  --signal-foreground: #121212;
+  --signal-deep: #b9350f;
+  --signal-tint: rgba(232, 70, 27, 0.12);
+  --plate: #1f1c18;
+  --plate-foreground: #f1ece2;
+  --ok: #1f7a4d;
+  --warn: #8a5a00;
+  --warn-tint: rgba(183, 121, 10, 0.12);
+  --bad: #b3261e;
+  --bad-tint: rgba(214, 69, 69, 0.1);
+  --info: #2856b8;
+  --info-tint: rgba(47, 111, 214, 0.1);
+  --line-2: rgba(18, 18, 18, 0.18);
+  --shadow-card: 0 1px 2px rgba(31, 28, 24, 0.06), 0 12px 32px rgba(31, 28, 24, 0.08);
+  --shadow-float: 0 2px 6px rgba(31, 28, 24, 0.08), 0 24px 56px rgba(31, 28, 24, 0.14);
+
+  --chart-1: #e8461b;
+  --chart-2: #2856b8;
+  --chart-3: #1f1c18;
+  --chart-4: #b7790a;
+  --chart-5: #6b665d;
+
+  --sidebar: #fffdf8;
+  --sidebar-foreground: #121212;
+  --sidebar-primary: #121212;
+  --sidebar-primary-foreground: #f4f1ea;
+  --sidebar-accent: #ece7dd;
+  --sidebar-accent-foreground: #121212;
+  --sidebar-border: rgba(18, 18, 18, 0.1);
+  --sidebar-ring: #e8461b;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --background: #0f0e0c;
+  --foreground: #f1ece2;
+  --card: #171512;
+  --card-foreground: #f1ece2;
+  --popover: #171512;
+  --popover-foreground: #f1ece2;
+  --primary: #f1ece2;
+  --primary-foreground: #121212;
+  --secondary: #221f1b;
+  --secondary-foreground: #f1ece2;
+  --muted: #221f1b;
+  --muted-foreground: #8c8477;
+  --accent: #221f1b;
+  --accent-foreground: #f1ece2;
+  --destructive: #f26d65;
+  --border: rgba(241, 236, 226, 0.1);
+  --input: rgba(241, 236, 226, 0.18);
+  --ring: #ff5a2c;
+
+  --ink-2: #b8b0a3;
+  --ink-3: #8c8477;
+  --surface-2: #221f1b;
+  --signal: #ff5a2c;
+  --signal-foreground: #121212;
+  --signal-deep: #ff6e45;
+  --signal-tint: rgba(255, 90, 44, 0.16);
+  --plate: #2a2622;
+  --plate-foreground: #f1ece2;
+  --ok: #4cc28a;
+  --warn: #f0b747;
+  --warn-tint: rgba(240, 183, 71, 0.14);
+  --bad: #f26d65;
+  --bad-tint: rgba(242, 109, 101, 0.14);
+  --info: #7faef7;
+  --info-tint: rgba(127, 174, 247, 0.14);
+  --line-2: rgba(241, 236, 226, 0.16);
+  --shadow-card: 0 1px 0 rgba(241, 236, 226, 0.04) inset, 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-float: 0 1px 0 rgba(241, 236, 226, 0.05) inset, 0 24px 56px rgba(0, 0, 0, 0.6);
+
+  --chart-1: #ff6e45;
+  --chart-2: #7faef7;
+  --chart-3: #b8b0a3;
+  --chart-4: #f0b747;
+  --chart-5: #8c8477;
+
+  --sidebar: #171512;
+  --sidebar-foreground: #f1ece2;
+  --sidebar-primary: #f1ece2;
+  --sidebar-primary-foreground: #121212;
+  --sidebar-accent: #221f1b;
+  --sidebar-accent-foreground: #f1ece2;
+  --sidebar-border: rgba(241, 236, 226, 0.1);
+  --sidebar-ring: #ff5a2c;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-ink: var(--foreground);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-surface-2: var(--surface-2);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-signal-deep: var(--signal-deep);
+  --color-signal-tint: var(--signal-tint);
+  --color-plate: var(--plate);
+  --color-plate-foreground: var(--plate-foreground);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-warn-tint: var(--warn-tint);
+  --color-bad: var(--bad);
+  --color-bad-tint: var(--bad-tint);
+  --color-info: var(--info);
+  --color-info-tint: var(--info-tint);
+  --color-line-2: var(--line-2);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
+
+  /* radius by role: chip 6, control 10, card 14, sheet 20 */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
+
+  /* type: display serif, UI sans, data mono (next/font variables live on <html>) */
+  --font-sans: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-app), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono-app), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  .font-mono, [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px;
+    }
+  }
+  ::selection {
+    background: var(--signal-tint);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-2) transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Display type: Fraunces (soft, optical size up), for page titles and hero numbers only. */
+  .type-display {
+    font-family: var(--font-display-app), Georgia, serif;
+    font-weight: 380;
+    font-variation-settings: "opsz" 96, "SOFT" 40, "WONK" 1;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+  .type-display em, .type-display i {
+    font-style: italic;
+    font-weight: 340;
+  }
+  /* Mono eyebrow, sentence case (the network is written Arc, never in capitals). */
+  .type-eyebrow {
+    font-family: var(--font-mono-app), ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+  }
+  /* The seam: one 22-degree hairline taken from the mark. The only decorative device. */
+  .seam {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-2) 15%, var(--line-2) 85%, transparent);
+  }
+  .seam::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -14px;
+    width: 28px;
+    height: 28px;
+    transform: translateX(-50%) rotate(-22deg);
+    border-left: 1.5px solid var(--signal);
+    opacity: 0.7;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+}
