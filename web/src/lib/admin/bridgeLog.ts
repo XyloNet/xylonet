@@ -20,6 +20,11 @@ export interface BridgeLogEntry {
   fromChainId: number
   toChainId: number
   txHash?: string
+  /**
+   * true when the route found the receipt on chain (success, sent by `wallet`);
+   * false when the receipt could not be read in time. Only verified entries count.
+   */
+  verified?: boolean
   /** Unix seconds. */
   ts: number
 }

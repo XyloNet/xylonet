@@ -33,6 +33,10 @@ import { NextRequest, NextResponse } from 'next/server'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
+// The expensive scans (eth_getLogs, eth_getStorageAt) are deliberately absent:
+// the browser never needs them (every event scan runs server-side against the
+// log RPC), and the Origin header is forgeable by any non-browser client, so the
+// trusted tier must not hand out anything that can drain the upstream quota.
 const ALLOWED_METHODS = new Set([
   'eth_chainId',
   'eth_syncing',
@@ -40,7 +44,6 @@ const ALLOWED_METHODS = new Set([
   'eth_blockNumber',
   'eth_getBalance',
   'eth_getCode',
-  'eth_getStorageAt',
   'eth_getTransactionCount',
   'eth_call',
   'eth_estimateGas',
@@ -51,7 +54,6 @@ const ALLOWED_METHODS = new Set([
   'eth_getBlockByHash',
   'eth_getTransactionByHash',
   'eth_getTransactionReceipt',
-  'eth_getLogs',
   'eth_sendRawTransaction',
   'eth_getBlockTransactionCountByNumber',
   'eth_getTransactionByBlockNumberAndIndex',

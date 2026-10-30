@@ -11,7 +11,12 @@ export const size = OG_SIZE
 export const contentType = 'image/png'
 
 function parse(segment: string): string | null {
-  const raw = decodeURIComponent(segment)
+  let raw: string
+  try {
+    raw = decodeURIComponent(segment)
+  } catch {
+    return null
+  }
   const h = raw.startsWith('@') ? raw.slice(1) : raw
   if (!HANDLE_RE.test(h)) return null
   return normalizeHandle(h) ?? h.toLowerCase()

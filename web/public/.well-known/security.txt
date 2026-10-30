@@ -1,16 +1,14 @@
-# XyloNet Security Contact Information
-# This is a legitimate DeFi application on ARC Testnet
+# XyloNet security contact (RFC 9116)
+# XyloNet runs on Arc mainnet (chain 5042) with real funds. Please report privately first.
 
 Contact: mailto:forgelabs@xylonet.xyz
-Expires: 2027-01-15T00:00:00.000Z
+Expires: 2027-10-30T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://www.xylonet.xyz/.well-known/security.txt
+Policy: https://github.com/XyloNet/xylonet/blob/main/SECURITY.md
 
-# XyloNet is a decentralized exchange and payment platform
-# Our smart contracts are deployed on ARC Testnet
-# This is NOT a phishing site
-
-# Official Links:
+# Official links. Anything else claiming to be XyloNet is not us.
 # Website: https://www.xylonet.xyz
 # Documentation: https://www.xylonet.xyz/docs
-# GitHub: https://github.com/xylonet
+# Contracts and live status: https://www.xylonet.xyz/trust
+# Source: https://github.com/XyloNet/xylonet

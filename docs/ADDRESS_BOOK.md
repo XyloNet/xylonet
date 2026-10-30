@@ -10,16 +10,18 @@ Single source of truth for every XyloNet address on Arc mainnet. Update on every
 | **XyloNet Treasury Safe** | `0x7EF8Aa263E3Bb8a151702108bD29932e50409990` | Safe v1.4.1 (SafeL2), 2-of-3. All fee flows. Tx `0x0ca15615436a8188e266a60d1704975b650ecfaa655df231f88a5f0e136dfa5d`, block 16104822, saltNonce 20260818002 |
 
 **Status:**
-- **Admin Safe: ✅ REHEARSAL PASSED 2026-08-18** — 1 USDC → deployer, 2-of-3 (Panchu + CarbZ), exec tx `0x7a4e777f413153318d940b04a926e67e7eaa8a1c373316638e65ca172473253c` block 16125313. **Cleared to own contracts.**
-- **Treasury Safe: ✅ REHEARSAL PASSED** — round 1 executed by CarbZ 2026-08-20 (`0x999fe5d3…2f96`), round 2 confirmed+executed by BMS (Safe nonce now 2, verified on-chain 2026-09-15). Cleared to receive fee flows.
+- **Admin Safe: ✅ REHEARSAL PASSED 2026-08-18** — 1 USDC → deployer, 2-of-3, exec tx `0x7a4e777f413153318d940b04a926e67e7eaa8a1c373316638e65ca172473253c` block 16125313. **Cleared to own contracts.**
+- **Treasury Safe: ✅ REHEARSAL PASSED** — round 1 executed 2026-08-20 (`0x999fe5d3…2f96`), round 2 by the third signer (Safe nonce now 2, verified on-chain 2026-09-15). Cleared to receive fee flows.
 
 ## Safe owners (both Safes, threshold 2-of-3)
 
-| Wallet | Owner | Address |
-|---|---|---|
-| XYLO-SIGNER-1 | Panchu | `0xdF06689771B15911e5197191d378381A1F5B8724` |
-| XYLO-SIGNER-2 | CarbZ | `0xEe5395960fA7fbb8eEEd4437De012B29dFe65A68` |
-| XYLO-SIGNER-3 | BMS | `0x39E5633988d95973Da3024F13416282eaa784a6B` |
+Three co-founder wallets, one each. Which wallet belongs to whom is deliberately not written down here.
+
+| Wallet | Address |
+|---|---|
+| XYLO-SIGNER-1 | `0xdF06689771B15911e5197191d378381A1F5B8724` |
+| XYLO-SIGNER-2 | `0xEe5395960fA7fbb8eEEd4437De012B29dFe65A68` |
+| XYLO-SIGNER-3 | `0x39E5633988d95973Da3024F13416282eaa784a6B` |
 
 ## Operational EOAs
 
@@ -51,7 +53,7 @@ Single source of truth for every XyloNet address on Arc mainnet. Update on every
 
 | Name | Address | Details |
 |---|---|---|
-| **PayXTipping v2** | `0x47d4164F2f65afc00c7ba932cbEC9858b5FDAf0A` | Deployed 2026-09-15, tx `0xb59022545c48bb7c086980dcb8126effb155c595f8a16e79d97015c11b08fd39`, block 20936229, solc 0.8.30 / 200 runs / cancun, commit 4d133c9. owner: deployer, **pendingOwner = Admin Safe** (transferOwnership tx `0x93536ade…3df4ed`, 2026-09-15; acceptOwnership ceremony pending). Smoke test passed 2026-09-15: tip `0xcda900df4766209f02ebfdc8e23f7a53615a0fedef57ab19696916e01707c02f`, claim `0xfd3c6586fc5247e8a685c476ed10e83adbe12af8ef7d1ade4822befaa53e3738`; @panchu2605 linked to `0xBBAFfA47bB6cD34f0fB91Ed55C1b31e09B7c896a`. First-ever mainnet tip: 1 USDC → @samconnerone (block 20938428, unclaimed); feeRecipient Treasury Safe; 100 bps; minTip 100000; EIP-712 domainSeparator `0x85c2fa59cc6133afcf2b7613fdd76ac138b04cb7b0ad890282913e1644f420fc` |
+| **PayXTipping v2** | `0x47d4164F2f65afc00c7ba932cbEC9858b5FDAf0A` | Deployed 2026-09-15, tx `0xb59022545c48bb7c086980dcb8126effb155c595f8a16e79d97015c11b08fd39`, block 20936229, solc 0.8.30 / 200 runs / cancun, commit 4d133c9. **owner = Admin Safe** (transferOwnership tx `0x93536ade…3df4ed` 2026-09-15; acceptOwnership executed by the Safe 2026-09-16, Safe nonce 1). Smoke test passed 2026-09-15: tip `0xcda900df4766209f02ebfdc8e23f7a53615a0fedef57ab19696916e01707c02f`, claim `0xfd3c6586fc5247e8a685c476ed10e83adbe12af8ef7d1ade4822befaa53e3738`; @panchu2605 linked to `0xBBAFfA47bB6cD34f0fB91Ed55C1b31e09B7c896a`. First-ever mainnet tip: 1 USDC → @samconnerone (block 20938428, unclaimed); feeRecipient Treasury Safe; 100 bps; minTip 100000; EIP-712 domainSeparator `0x85c2fa59cc6133afcf2b7613fdd76ac138b04cb7b0ad890282913e1644f420fc` |
 | **PayXTipping v2 (EURC)** | `0xB9E6b729425DB5565E8caFCE6d35E820FaE7d1ca` | Deployed 2026-10-04, tx `0x3a5056b34207ef00bdc52c0185e4a364794e8a5406b36fc77ee89e7514e0a03e`, block 24213517. Escrow token EURC `0xbEf5…21c1`, minTip 0.1 EURC, 100 bps, feeRecipient Treasury Safe, oracle XYLO-ORACLE-01. **owner = Admin Safe** (acceptOwnership executed 2026-10-04, Safe nonce 2, safeTxHash `0xee26f420…af76`, tx `0xe80f6f7a54d6d165f7ae0d71353ec56c6f6136a90a9f4264e58a31972f470c5a`, block 24221353) |
 | **PayXTipping v2 (cirBTC)** | `0x1de44961059A0E4516fF56379EB77B1c4Da62f87` | Deployed 2026-10-04, tx `0x2d73dddb179db49c95d0a9060abad3b2ce0249cbe40ddc46b0bee57ed556e4c5`, block 24213560. Escrow token cirBTC `0x171A…bAA0` (8dp), minTip 0.000001 cirBTC, 100 bps, feeRecipient Treasury Safe, oracle XYLO-ORACLE-01. **owner = Admin Safe** (same Safe batch, nonce 2, tx `0xe80f6f7a54d6d165f7ae0d71353ec56c6f6136a90a9f4264e58a31972f470c5a`) |
 | XYLO-ORACLE-01 | `0x9e6D408256A3bDd0326C00df82136E843B7aDd97` | claim-signing EOA, never holds funds (key only in Vercel env) |

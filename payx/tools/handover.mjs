@@ -36,7 +36,7 @@ if (getAddress(pending) !== getAddress(ADMIN_SAFE)) {
 
 const calldata = encodeFunctionData({ abi: PAYX_ABI, functionName: 'acceptOwnership' })
 console.log(`
-=== SAFE CEREMONY (step 5) — Panchu proposes in app.safe.global on the phone ===
+=== SAFE CEREMONY (step 5) — a Safe owner proposes in app.safe.global ===
   Safe            : Admin Safe ${ADMIN_SAFE}
   New transaction → Contract interaction
     To (contract) : ${addr}

@@ -1,15 +1,16 @@
 # XyloNet — web (Arc mainnet)
 
-Front-end for XyloNet, the Stablecoin SuperExchange on **Arc mainnet (chain 5042)**.
+The app behind [xylonet.xyz](https://www.xylonet.xyz), on **Arc mainnet (chain 5042)**.
 
-- **Swap** — any token, any chain, routed by LI.FI (`/swap`)
-- **Bridge** — native USDC via Circle CCTP v2 (Arc domain 26) + any-token routes via LI.FI (`/bridge`)
-- **PayX** — tip any X handle in USDC; recipients claim with an X login (`/payx`, `/payx/tip`, `/payx/claim`)
-- **Docs** — network, contracts, integration (`/docs`)
+- **Pay** — pay any X handle or address in USDC (PayX); recipients claim with an X sign-in (`/pay`, `/pay/creator`, `/to/<handle>`)
+- **Exchange** — USDC and EURC on Arc, any other token via LI.FI (`/exchange`)
+- **Bridge** — native USDC via Circle CCTP v2 and Circle Gateway, any token via LI.FI (`/bridge`)
+- **Points**, **Trust**, **Docs** (`/points`, `/trust`, `/docs`)
+- **Admin** — private team analytics behind an X sign-in allowlist (`/admin`)
 
 ## Stack
 
-Next.js 16 (App Router) · React 18 · TypeScript · Tailwind 4 · wagmi 2 / viem 2 · RainbowKit 2
+Next.js 16 (App Router) · React 18 · TypeScript · Tailwind 4 · wagmi 2 / viem 2 · RainbowKit 2 · LI.FI widget and API · Circle App Kit
 
 ## Local development
 
@@ -19,46 +20,25 @@ cp .env.example .env.local   # fill in values — see comments in .env.example
 npm run dev
 ```
 
-Key environment variables (see `.env.example` for the full list):
-
-| Variable | Purpose |
-|---|---|
-| `ARC_RPC_URL`, `ARC_RPC_FALLBACK_URL` | Server-only credentialed RPC upstreams, fronted by `/api/rpc` |
-| `RPC_ALLOWED_ORIGINS` | Optional extra web origins granted the full `/api/rpc` method set (our domains, Vercel previews and same-host are always trusted; extensions and no-Origin wallets get a minimal method set; other origins are refused) |
-| `NEXT_PUBLIC_ARC_RPC_URL` | Optional public Arc RPC (Circle). Leave empty to use `/api/rpc` |
-| `NEXT_PUBLIC_ARC_EXPLORER_URL` | Explorer base URL (default `https://explorer.arc.io`) |
-| `NEXT_PUBLIC_PAYX_CONTRACT_ADDRESS` | PayX v2 address, set after deployment |
-| `NEXT_PUBLIC_LIFI_INTEGRATOR`, `NEXT_PUBLIC_LIFI_FEE` | LI.FI integrator id and optional fee |
-| `TWITTER_*`, `SESSION_SECRET`, `ORACLE_PRIVATE_KEY` | PayX X-login and claim signing (server-only) |
-
-Never commit `.env.local`; `.gitignore` ignores every `.env*` except `.env.example`.
+Every variable is documented in `.env.example`. Secrets (RPC credentials, the oracle signing key, the session secret, X OAuth, store tokens) exist only in the host's environment; never commit `.env.local`.
 
 ## Chain hygiene
 
-This app targets Arc mainnet only. Chain, RPC and explorer configuration live in `src/config/wagmi.ts`;
-contract addresses live in `src/config/constants.ts`. Credentialed RPC URLs must never appear in client code.
+This app targets Arc mainnet only. Chain, RPC and explorer configuration live in `src/config/wagmi.ts`; contract addresses in `src/config/constants.ts`. Credentialed RPC URLs never appear in client code: browser reads go through the same-origin proxy at `/api/rpc`, which allowlists origins and methods.
 
 ## Layout
 
 ```
-src/app            routes: /, /swap, /bridge, /payx/**, /docs/**, /privacy, /terms, /api/rpc, /api/payx/**
-src/components     Header, Footer, landing/*, swap/*, bridge/*, ui/*
-src/config         wagmi.ts (chain + transports), constants.ts (addresses), abis/
-src/lib            payx helpers, session, utils
+src/app            routes: /, /pay/**, /to/[handle], /exchange, /bridge, /points, /dashboard, /activity, /trust, /docs/**, /admin, /api/**
+src/components     shell/*, home/*, pay/*, exchange/*, bridge/*, unified/*, wallet/*, xylo/* (design system), ui/*
+src/config         wagmi.ts (chains + transports), constants.ts (addresses), abis/
+src/lib            payx (oracle, sessions, feeds), points (derived ledger), admin, bridge, unified, lifi, push, trust, og
 ```
 
-## Deploy
+## Checks
 
-Vercel. Set the environment variables above in the project settings and deploy `main`.
+`npm run typecheck`, `npm run lint`, and `npm run build` (which also runs the design-token lint in `scripts/check-tokens.mjs`).
 
 ## Points (Season 1)
 
-`/points` shows a derived loyalty ledger: 1 point per $1 swapped, bridged or tipped, plus activity and
-first-time bonuses (rules in `src/lib/points/rules.ts`). Data comes from LI.FI transfer records for the
-`xylonet` integrator and PayX contract events on Arc; nothing is stored that cannot be rebuilt.
-
-- Snapshot store: `.data/points/` locally (gitignored); Upstash Redis on Vercel when
-  `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` are set; memory otherwise.
-- Full backfill (once per fresh store, ~3 min against Circle's public RPC):
-  `curl -X POST "http://localhost:3100/api/points/sync?mode=full"` (protected by `POINTS_ADMIN_KEY` outside dev).
-- API: `GET /api/points/leaderboard`, `GET /api/points/wallet/:address`, `GET /api/points/rules`.
+`/points` shows a derived ledger: 1 point per $1 exchanged, bridged or paid, plus activity and first-time bonuses (rules in `src/lib/points/rules.ts`). Data comes from LI.FI transfer records for the `xylonet` integrator and PayX contract events on Arc; nothing is stored that cannot be rebuilt. The public API never exposes platform totals: `GET /api/points/leaderboard` (top 100), `GET /api/points/wallet/:address`, `GET /api/points/rules`.

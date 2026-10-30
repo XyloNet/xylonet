@@ -40,11 +40,11 @@ const SAFE_CONTRACTS = {
 // (testnet copies were independently verified in the 2026-07-18 audit)
 const BYTECODE_COMPARE = ['SafeL2_singleton', 'SafeProxyFactory', 'CompatibilityFallbackHandler']
 
-// Signer addresses as pasted by Panchu in chat 2026-08-18 (cross-check vs .env)
+// Signer addresses agreed by the founders 2026-08-18 (cross-check vs .env)
 const CHAT_SIGNERS = {
-  SIGNER_1: { addr: '0xdF06689771B15911e5197191d378381A1F5B8724', label: 'Panchu' },
-  SIGNER_2: { addr: '0xEe5395960fA7fbb8eEEd4437De012B29dFe65A68', label: 'CarbZ' },
-  SIGNER_3: { addr: '0x39e5633988d95973da3024f13416282eaa784a6b', label: 'BMS' },
+  SIGNER_1: { addr: '0xdF06689771B15911e5197191d378381A1F5B8724', label: 'Signer 1' },
+  SIGNER_2: { addr: '0xEe5395960fA7fbb8eEEd4437De012B29dFe65A68', label: 'Signer 2' },
+  SIGNER_3: { addr: '0x39e5633988d95973da3024f13416282eaa784a6b', label: 'Signer 3' },
 }
 
 const erc20Abi = parseAbi([

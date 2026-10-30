@@ -10,6 +10,21 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 const NO_STORE = { 'cache-control': 'no-store' }
 
+/**
+ * Only the browsers' own push services. The dispatcher POSTs to every stored
+ * endpoint, so an arbitrary https URL here would turn it into a webhook.
+ */
+const PUSH_HOSTS = [/^fcm\.googleapis\.com$/, /^updates\.push\.services\.mozilla\.com$/, /(^|\.)push\.apple\.com$/, /(^|\.)notify\.windows\.com$/, /(^|\.)push\.services\.mozilla\.com$/, /^android\.googleapis\.com$/]
+function isPushEndpoint(endpoint: string): boolean {
+  if (endpoint.length > 2048) return false
+  try {
+    const u = new URL(endpoint)
+    return u.protocol === 'https:' && PUSH_HOSTS.some((re) => re.test(u.hostname))
+  } catch {
+    return false
+  }
+}
+
 async function handleFromSession(): Promise<string | null> {
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions)
   if (!session.isLoggedIn || !session.twitterHandle) return null
@@ -22,7 +37,7 @@ export async function POST(request: NextRequest) {
   const handle = await handleFromSession()
   if (!handle) return NextResponse.json({ error: 'Sign in with X first' }, { status: 401, headers: NO_STORE })
   const body = (await request.json().catch(() => null)) as { endpoint?: string; keys?: { p256dh?: string; auth?: string } } | null
-  if (!body?.endpoint?.startsWith('https://') || !body.keys?.p256dh || !body.keys?.auth) {
+  if (!body?.endpoint || !isPushEndpoint(body.endpoint) || !body.keys?.p256dh || !body.keys?.auth || body.keys.p256dh.length > 200 || body.keys.auth.length > 100) {
     return NextResponse.json({ error: 'Invalid subscription' }, { status: 400, headers: NO_STORE })
   }
   const count = await addSubscription(handle, { endpoint: body.endpoint, keys: { p256dh: body.keys.p256dh, auth: body.keys.auth } })

@@ -21,7 +21,7 @@ contract DeployPayX is Script {
     // Pinned mainnet constants — see docs/ADDRESS_BOOK.md
     address constant USDC = 0x3600000000000000000000000000000000000000;
     address constant TREASURY_SAFE = 0x7EF8Aa263E3Bb8a151702108bD29932e50409990; // feeRecipient
-    uint256 constant PLATFORM_FEE_BPS = 100;   // 1% (confirmed by Panchu 2026-08-18)
+    uint256 constant PLATFORM_FEE_BPS = 100;   // 1% (decided 2026-08-18)
     uint256 constant MIN_TIP_AMOUNT = 100000;  // 0.1 USDC @ 6dp
 
     function run() external {

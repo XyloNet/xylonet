@@ -6,10 +6,12 @@ import { sessionOptions, isSessionConfigured, type SessionData } from '@/lib/ses
 /**
  * Admin access = the existing X sign-in session plus an allowlist of handles.
  * ADMIN_X_HANDLES: comma-separated, case-insensitive, with or without "@".
+ * No default: with the variable unset, nobody is an admin. The list is never
+ * written into the code base, so the public mirror does not say whose X
+ * account opens this page.
  * ADMIN_DEV_HANDLE: development only (never read in production): treats
  * every request as that handle so the page can be built without X OAuth.
  */
-const DEFAULT_HANDLES = ['panchu2605', 'carbzxbt', 'bloomstarbms']
 
 export interface AdminSession {
   signedIn: boolean
@@ -26,8 +28,7 @@ function norm(h: string): string {
 
 export function adminHandles(): string[] {
   const raw = process.env.ADMIN_X_HANDLES
-  const list = raw ? raw.split(',').map(norm).filter(Boolean) : DEFAULT_HANDLES
-  return list.length ? list : DEFAULT_HANDLES
+  return raw ? raw.split(',').map(norm).filter(Boolean) : []
 }
 
 export function isAdminHandle(handle: string | null | undefined): boolean {

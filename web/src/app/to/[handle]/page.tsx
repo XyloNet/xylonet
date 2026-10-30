@@ -15,7 +15,12 @@ export const revalidate = 30
 const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://www.xylonet.xyz').replace(/\/$/, '')
 
 function parse(segment: string): string | null {
-  const raw = decodeURIComponent(segment)
+  let raw: string
+  try {
+    raw = decodeURIComponent(segment)
+  } catch {
+    return null
+  }
   const h = raw.startsWith('@') ? raw.slice(1) : raw
   if (!HANDLE_RE.test(h)) return null
   return normalizeHandle(h) ?? h.toLowerCase()

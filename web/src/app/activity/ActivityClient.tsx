@@ -25,7 +25,7 @@ export function ActivityClient() {
 
   return (
     <div className="mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10">
-      <PageHeader eyebrow="Activity · Arc" title="Everything you moved." description="Exchanges, bridges, payments and claims made through XyloNet, newest first. Only you see this, and only for the wallet you connect." />
+      <PageHeader eyebrow="Activity · Arc" title="Everything you moved." description="Exchanges, bridges, payments and claims made through XyloNet, newest first, rebuilt from public chain and routing data for the wallet you connect." />
 
       <div className="mt-8 max-w-[760px]">
         {!isConnected ? (

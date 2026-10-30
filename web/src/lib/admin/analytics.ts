@@ -347,7 +347,8 @@ export async function buildAdminAnalytics(opts: { from?: number; to?: number } =
   assets.sort((x, y) => (order.indexOf(x.symbol) + 100) % 100 - ((order.indexOf(y.symbol) + 100) % 100))
 
   // Bridge-start log (CCTP, Gateway), selected range.
-  const logEntries = log.entries.filter((e) => e.ts >= from && e.ts <= to)
+  // Only entries whose transaction was found on chain (success, sent by the wallet) count.
+  const logEntries = log.entries.filter((e) => e.verified === true && e.ts >= from && e.ts <= to)
   const cctp = bucket()
   const cctpRoutes = new Map<string, Bucket & { label: string }>()
   const gDep = bucket()

@@ -42,7 +42,7 @@ function CallbackHandler() {
           } catch {
             back = null;
           }
-          router.push(back && /^\/[A-Za-z0-9/_-]*$/.test(back) ? back : "/pay/creator");
+          router.push(back && /^\/(?!\/)[A-Za-z0-9/_-]*$/.test(back) ? back : "/pay/creator");
         } else {
           const data = (await res.json()) as { error?: string; reason?: string };
           console.error("Callback error:", data);

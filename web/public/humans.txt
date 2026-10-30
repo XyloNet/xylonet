@@ -8,17 +8,18 @@ Location: Global
 
 /* SITE */
 Name: XyloNet
-Description: Stablecoin SuperExchange on Arc Network - DEX, Bridge, PayX
+Description: The money app on Arc. Pay anyone on X in USDC, exchange USDC and EURC, bridge native USDC.
 URL: https://www.xylonet.xyz
+Source: https://github.com/XyloNet/xylonet
 Standards: HTML5, CSS3, TypeScript, React, Next.js
-Components: Swap, Bridge, Pools, Vault, PayX
-Software: Next.js, wagmi, viem, RainbowKit
+Components: Pay (PayX), Exchange, Bridge, Points
+Software: Next.js, wagmi, viem, RainbowKit, LI.FI, Circle App Kit
 
 /* BLOCKCHAIN */
-Network: Arc Network (Testnet)
-Contracts: Verified on ArcScan
-Technology: Solidity Smart Contracts
+Network: Arc mainnet (chain 5042)
+Contracts: see https://www.xylonet.xyz/trust
+Technology: Solidity smart contracts
 
 /* BUILD INFO */
-Last Update: 2026-01-15
-Version: 1.0.0
+Last Update: 2026-10-30
+Version: 3.0.0
