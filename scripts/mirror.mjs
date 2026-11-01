@@ -31,7 +31,7 @@ if (path.resolve(target) === ROOT || ROOT.startsWith(target + path.sep)) {
 }
 
 /** Directories and files that go public, relative to the repo root. */
-const ALLOW = ['web', 'payx/contracts', 'payx/extension', 'payx/tools', 'payx/branding', 'safe', 'scripts/mirror.mjs', 'docs/ADDRESS_BOOK.md', '.gitignore']
+const ALLOW = ['web', 'payx/contracts', 'payx/extension', 'payx/tools', 'payx/branding', 'safe', 'scripts/mirror.mjs', 'docs/ADDRESS_BOOK.md', 'OLYMPIX_SUBMISSION.md', '.gitignore']
 
 /** Root files of the public repo, taken from mirror/. */
 const ROOT_FILES = { 'mirror/README.md': 'README.md', 'mirror/LICENSE': 'LICENSE', 'mirror/SECURITY.md': 'SECURITY.md', 'mirror/CONTRIBUTING.md': 'CONTRIBUTING.md' }

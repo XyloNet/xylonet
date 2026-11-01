@@ -224,8 +224,9 @@ contract PayXTipping is ReentrancyGuard, Ownable2Step, Pausable, EIP712 {
         uint256 fee = (amount * platformFeeBps) / 10000;
         uint256 netAmount = amount - fee;
 
-        usdc.safeTransferFrom(msg.sender, address(this), amount);
-
+        // Effects before the token interaction (checks-effects-interactions, F-01).
+        // nonReentrant already closes the re-entry path; this ordering removes the
+        // dependency on it for a token whose transfer hook could call back in.
         HandleInfo storage info = handles[normalizedHandle];
         info.pendingBalance += netAmount;
         info.totalReceived += netAmount;
@@ -238,6 +239,8 @@ contract PayXTipping is ReentrancyGuard, Ownable2Step, Pausable, EIP712 {
         tipHistory[normalizedHandle].push(
             Tip({tipper: msg.sender, amount: netAmount, timestamp: block.timestamp, message: message})
         );
+
+        usdc.safeTransferFrom(msg.sender, address(this), amount);
 
         emit TipSent(normalizedHandle, normalizedHandle, msg.sender, netAmount, fee, message, block.timestamp);
     }
