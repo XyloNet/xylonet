@@ -7,6 +7,7 @@ import { LazyMotion, MotionConfig, domAnimation } from 'motion/react'
 import { walletConfig } from '@/config/wallet'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
+import { ThemeColorMeta } from '@/components/shell/ThemeColorMeta'
 
 let queryClientInstance: QueryClient | null = null
 function getQueryClient() {
@@ -28,7 +29,8 @@ function getQueryClient() {
 export function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient()
   return (
-    <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+      <ThemeColorMeta />
       <LazyMotion features={domAnimation} strict>
         <MotionConfig reducedMotion="user" transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}>
           <WagmiProvider config={walletConfig}>

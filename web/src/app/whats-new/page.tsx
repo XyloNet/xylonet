@@ -26,7 +26,7 @@ const SECTIONS: { title: string; lead: string; items: { h: string; p: string; hr
     items: [
       { h: 'Bridge with live steps', p: 'Circle CCTP v2 in and out of Arc from 17 chains. The fee and the arrival amount are quoted before you sign, every step shows as it happens, and a stopped transfer resumes from the page.', href: '/bridge', cta: 'Bridge USDC' },
       { h: 'One balance via Circle Gateway', p: 'Deposit USDC once from any Gateway chain and spend it on Arc with a signature instead of a bridge. Circle attests and mints; XyloNet never holds it.', href: '/bridge?tab=unified', cta: 'Try one balance' },
-      { h: 'A dashboard that adds it up', p: 'Connect and the home page becomes yours: one dollar figure across Arc and five other chains, EURC, your unified balance, points and what just happened.' },
+      { h: 'An account that adds it up', p: 'Connect and Account shows one dollar figure across Arc and five other chains, EURC, your unified balance, points and what just happened.', href: '/dashboard', cta: 'Open your account' },
     ],
   },
   {
@@ -40,9 +40,9 @@ const SECTIONS: { title: string; lead: string; items: { h: string; p: string; hr
   },
   {
     title: 'A new face',
-    lead: 'Paper, ink and one signal colour for anything that moves money.',
+    lead: 'The XyloNet palette, back where it belongs: a navy ground, mint for anything that moves money, Manrope for the words and Geist Mono for the numbers.',
     items: [
-      { h: 'One shell for everything', p: 'Pay, Exchange, Bridge and Points in one header, with your account, the docs and the trust page one tap away. A bottom bar on phones, light and dark.' },
+      { h: 'One shell for everything', p: 'Pay, Exchange, Bridge and Points in one header, with your account, the docs and the trust page one tap away. A bottom bar on phones. Dark by default, with a light theme one tap away in the footer, or under More on a phone.' },
       { h: 'Docs in one place', p: 'Product docs and the PayX developer docs share one shell with a table of contents that follows you.', href: '/docs', cta: 'Read the docs' },
       { h: 'Accessible by default', p: 'Every page passes automated accessibility checks in both themes. Contrast, focus rings, keyboard paths and reduced motion are part of the design system, not an afterthought.' },
     ],
@@ -53,10 +53,10 @@ export default function WhatsNewPage() {
   return (
     <div className="mx-auto max-w-[1120px] px-4 pb-20 pt-8 sm:px-5 md:pt-10">
       <PageHeader
-        eyebrow="What's new · October 2026"
+        eyebrow="What's new · November 2026"
         title={
           <>
-            XyloNet, rebuilt as the <em className="text-signal-deep">money app</em> on Arc.
+            XyloNet, rebuilt as the <em>money app</em> on Arc.
           </>
         }
         description="Every page is new. Here is what changed, and where to try it."

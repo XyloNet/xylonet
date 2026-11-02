@@ -3,131 +3,137 @@
 @import "shadcn/tailwind.css";
 
 /* Theme attribute is set on <html data-theme="light|dark"> by next-themes
-   (system preference resolved on the client before paint). */
+   (dark by default; the toggle in the footer and the phone More sheet switches). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* =============================================================================
-   XyloNet identity v3: bone paper, ink, and one hot signal colour (vermilion)
-   for anything that moves money. Display serif Fraunces, UI Instrument Sans,
-   data Geist Mono. Light-first; dark values under [data-theme="dark"].
+   XyloNet identity: the brand book palette. Midnight Navy #191E29 is the
+   ground, Deep Ocean Blue #132D46 the plate, Neo Mint #01C38D the one colour
+   for anything that moves money, Slate Grey #696E79 for quiet structure,
+   Pure White for type. Dark is the default theme (the brand and the product
+   are dark); light is a full, tokenised alternative under [data-theme="light"].
+   UI and display type Manrope, data Geist Mono. Token NAMES are stable; only
+   values change between themes.
    ========================================================================== */
 :root {
   /* shadcn semantic layer */
-  --background: #f4f1ea;
-  --foreground: #121212;
-  --card: #fffdf8;
-  --card-foreground: #121212;
-  --popover: #fffdf8;
-  --popover-foreground: #121212;
-  --primary: #121212;
-  --primary-foreground: #f4f1ea;
-  --secondary: #ece7dd;
-  --secondary-foreground: #121212;
-  --muted: #ece7dd;
-  --muted-foreground: #6b665d;
-  --accent: #e8e2d6;
-  --accent-foreground: #121212;
-  --destructive: #b3261e;
-  --border: rgba(18, 18, 18, 0.1);
-  --input: rgba(18, 18, 18, 0.18);
-  --ring: #e8461b;
+  --background: #191e29;
+  --foreground: #ffffff;
+  --card: #1f2634;
+  --card-foreground: #ffffff;
+  --popover: #1f2634;
+  --popover-foreground: #ffffff;
+  --primary: #01c38d;
+  --primary-foreground: #191e29;
+  --secondary: #262e3c;
+  --secondary-foreground: #ffffff;
+  --muted: #262e3c;
+  --muted-foreground: #8f96a3;
+  --accent: #2c3544;
+  --accent-foreground: #ffffff;
+  --destructive: #f5837b;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.16);
+  --ring: #01c38d;
   --radius: 10px;
 
   /* XyloNet layer */
-  --ink-2: #4b4740;
-  --ink-3: #6b665d;
-  --surface-2: #ece7dd;
-  --signal: #e8461b;
-  --signal-foreground: #121212;
-  --signal-deep: #b9350f;
-  --signal-tint: rgba(232, 70, 27, 0.12);
-  --plate: #1f1c18;
-  --plate-foreground: #f1ece2;
-  --ok: #1f7a4d;
+  --ink-2: #b9bfca;
+  --ink-3: #8f96a3;
+  --surface-2: #262e3c;
+  --signal: #01c38d;
+  --signal-foreground: #191e29;
+  --signal-deep: #2adba6;
+  --signal-tint: rgba(1, 195, 141, 0.14);
+  --plate: #132d46;
+  --plate-foreground: #ffffff;
+  --ok: #01c38d;
+  --warn: #f5b942;
+  --warn-tint: rgba(245, 185, 66, 0.14);
+  --bad: #f5837b;
+  --bad-tint: rgba(245, 131, 123, 0.14);
+  --info: #5ba7f7;
+  --info-tint: rgba(91, 167, 247, 0.14);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --gradient-brand: linear-gradient(135deg, #132d46 0%, #0a786a 62%, #01c38e 100%);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 24px 56px rgba(0, 0, 0, 0.55);
+
+  --chart-1: #01c38d;
+  --chart-2: #5ba7f7;
+  --chart-3: #b9bfca;
+  --chart-4: #f5b942;
+  --chart-5: #848a96;
+
+  --sidebar: #1f2634;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #01c38d;
+  --sidebar-primary-foreground: #191e29;
+  --sidebar-accent: #262e3c;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #01c38d;
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --background: #f5f7fa;
+  --foreground: #191e29;
+  --card: #ffffff;
+  --card-foreground: #191e29;
+  --popover: #ffffff;
+  --popover-foreground: #191e29;
+  --primary: #01c38d;
+  --primary-foreground: #191e29;
+  --secondary: #edf0f4;
+  --secondary-foreground: #191e29;
+  --muted: #edf0f4;
+  --muted-foreground: #5e6573;
+  --accent: #e4e8ee;
+  --accent-foreground: #191e29;
+  --destructive: #b3261e;
+  --border: rgba(25, 30, 41, 0.1);
+  --input: rgba(25, 30, 41, 0.18);
+  --ring: #0a786a;
+
+  --ink-2: #3f4653;
+  --ink-3: #5e6573;
+  --surface-2: #edf0f4;
+  --signal: #0a786a;
+  --signal-foreground: #ffffff;
+  --signal-deep: #076b5e;
+  --signal-tint: rgba(1, 195, 141, 0.12);
+  --plate: #132d46;
+  --plate-foreground: #ffffff;
+  --ok: #076b5e;
   --warn: #8a5a00;
   --warn-tint: rgba(183, 121, 10, 0.12);
   --bad: #b3261e;
   --bad-tint: rgba(214, 69, 69, 0.1);
   --info: #2856b8;
   --info-tint: rgba(47, 111, 214, 0.1);
-  --line-2: rgba(18, 18, 18, 0.18);
-  --shadow-card: 0 1px 2px rgba(31, 28, 24, 0.06), 0 12px 32px rgba(31, 28, 24, 0.08);
-  --shadow-float: 0 2px 6px rgba(31, 28, 24, 0.08), 0 24px 56px rgba(31, 28, 24, 0.14);
+  --line-2: rgba(25, 30, 41, 0.18);
+  --gradient-brand: linear-gradient(135deg, #132d46 0%, #0a786a 62%, #01c38e 100%);
+  --shadow-card: 0 1px 2px rgba(25, 30, 41, 0.06), 0 12px 32px rgba(25, 30, 41, 0.08);
+  --shadow-float: 0 2px 6px rgba(25, 30, 41, 0.08), 0 24px 56px rgba(25, 30, 41, 0.14);
 
-  --chart-1: #e8461b;
+  --chart-1: #0a786a;
   --chart-2: #2856b8;
-  --chart-3: #1f1c18;
+  --chart-3: #191e29;
   --chart-4: #b7790a;
-  --chart-5: #6b665d;
+  --chart-5: #696e79;
 
-  --sidebar: #fffdf8;
-  --sidebar-foreground: #121212;
-  --sidebar-primary: #121212;
-  --sidebar-primary-foreground: #f4f1ea;
-  --sidebar-accent: #ece7dd;
-  --sidebar-accent-foreground: #121212;
-  --sidebar-border: rgba(18, 18, 18, 0.1);
-  --sidebar-ring: #e8461b;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #191e29;
+  --sidebar-primary: #01c38d;
+  --sidebar-primary-foreground: #191e29;
+  --sidebar-accent: #edf0f4;
+  --sidebar-accent-foreground: #191e29;
+  --sidebar-border: rgba(25, 30, 41, 0.1);
+  --sidebar-ring: #0a786a;
 
   color-scheme: light;
-}
-
-[data-theme="dark"] {
-  --background: #0f0e0c;
-  --foreground: #f1ece2;
-  --card: #171512;
-  --card-foreground: #f1ece2;
-  --popover: #171512;
-  --popover-foreground: #f1ece2;
-  --primary: #f1ece2;
-  --primary-foreground: #121212;
-  --secondary: #221f1b;
-  --secondary-foreground: #f1ece2;
-  --muted: #221f1b;
-  --muted-foreground: #8c8477;
-  --accent: #221f1b;
-  --accent-foreground: #f1ece2;
-  --destructive: #f26d65;
-  --border: rgba(241, 236, 226, 0.1);
-  --input: rgba(241, 236, 226, 0.18);
-  --ring: #ff5a2c;
-
-  --ink-2: #b8b0a3;
-  --ink-3: #8c8477;
-  --surface-2: #221f1b;
-  --signal: #ff5a2c;
-  --signal-foreground: #121212;
-  --signal-deep: #ff6e45;
-  --signal-tint: rgba(255, 90, 44, 0.16);
-  --plate: #2a2622;
-  --plate-foreground: #f1ece2;
-  --ok: #4cc28a;
-  --warn: #f0b747;
-  --warn-tint: rgba(240, 183, 71, 0.14);
-  --bad: #f26d65;
-  --bad-tint: rgba(242, 109, 101, 0.14);
-  --info: #7faef7;
-  --info-tint: rgba(127, 174, 247, 0.14);
-  --line-2: rgba(241, 236, 226, 0.16);
-  --shadow-card: 0 1px 0 rgba(241, 236, 226, 0.04) inset, 0 12px 32px rgba(0, 0, 0, 0.45);
-  --shadow-float: 0 1px 0 rgba(241, 236, 226, 0.05) inset, 0 24px 56px rgba(0, 0, 0, 0.6);
-
-  --chart-1: #ff6e45;
-  --chart-2: #7faef7;
-  --chart-3: #b8b0a3;
-  --chart-4: #f0b747;
-  --chart-5: #8c8477;
-
-  --sidebar: #171512;
-  --sidebar-foreground: #f1ece2;
-  --sidebar-primary: #f1ece2;
-  --sidebar-primary-foreground: #121212;
-  --sidebar-accent: #221f1b;
-  --sidebar-accent-foreground: #f1ece2;
-  --sidebar-border: rgba(241, 236, 226, 0.1);
-  --sidebar-ring: #ff5a2c;
-
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -194,18 +200,19 @@
   --radius-3xl: 24px;
   --radius-4xl: 28px;
 
-  /* type: display serif, UI sans, data mono (next/font variables live on <html>) */
+  /* type: Manrope for UI and display, Geist Mono for data (next/font variables live on <html>) */
   --font-sans: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display-app), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-app), ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-heading: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+  --background-image-brand: var(--gradient-brand);
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/80;
   }
   html {
     font-family: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
@@ -258,17 +265,20 @@
 }
 
 @layer components {
-  /* Display type: Fraunces (soft, optical size up), for page titles and hero numbers only. */
+  /* Display type: Manrope extra-bold, tight, for page titles and hero numbers only. */
   .type-display {
-    font-family: var(--font-display-app), Georgia, serif;
-    font-weight: 380;
-    font-variation-settings: "opsz" 96, "SOFT" 40, "WONK" 1;
-    letter-spacing: -0.02em;
-    line-height: 1.02;
+    font-family: var(--font-sans-app), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
   .type-display em, .type-display i {
-    font-style: italic;
-    font-weight: 340;
+    font-style: normal;
+    color: var(--signal);
+  }
+  /* The brand gradient as a fill (mark, tile icons, hero accents). */
+  .bg-brand {
+    background-image: var(--gradient-brand);
   }
   /* Mono eyebrow, sentence case (the network is written Arc, never in capitals). */
   .type-eyebrow {

@@ -48,7 +48,7 @@ const walletTheme: Theme = {
     generalBorder: 'var(--border)',
     generalBorderDim: 'var(--border)',
     menuItemBackground: 'var(--secondary)',
-    modalBackdrop: 'rgba(18, 18, 18, 0.5)', // token-exempt: overlay scrim
+    modalBackdrop: 'rgba(25, 30, 41, 0.64)', // token-exempt: overlay scrim, Midnight Navy
     modalBackground: 'var(--card)',
     modalBorder: 'var(--border)',
     modalText: 'var(--foreground)',

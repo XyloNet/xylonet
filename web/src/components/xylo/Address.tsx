@@ -45,7 +45,7 @@ export function Address({ value, kind = 'address', explorerBase = ARC_EXPLORER_U
           type="button"
           onClick={onCopy}
           aria-label={copied ? 'Copied' : `Copy ${kind === 'tx' ? 'transaction hash' : 'address'}`}
-          className="inline-flex size-6 items-center justify-center rounded-sm text-ink-3 outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="inline-flex size-6 items-center justify-center rounded-sm text-ink-3 outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/80"
         >
           {copied ? <Check className="size-3.5 text-signal-deep" /> : <Copy className="size-3.5" />}
         </button>
@@ -56,7 +56,7 @@ export function Address({ value, kind = 'address', explorerBase = ARC_EXPLORER_U
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Open in explorer"
-          className="inline-flex size-6 items-center justify-center rounded-sm text-ink-3 outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="inline-flex size-6 items-center justify-center rounded-sm text-ink-3 outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/80"
         >
           <ExternalLink className="size-3.5" />
         </a>

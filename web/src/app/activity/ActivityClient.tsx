@@ -12,6 +12,7 @@ import { useWallet } from '@/hooks/useWallet'
 import { useActivity, eventDetail, eventLabel, eventLink } from '@/lib/activity/useActivity'
 import type { PointsEvent } from '@/lib/points/types'
 import { formatDateTime, timeAgo } from '@/lib/format'
+import { cn } from '@/lib/utils'
 
 const ICONS = { swap: ArrowLeftRight, bridge: Waypoints, tip_sent: Send, tip_received: Download } as const
 
@@ -24,14 +25,14 @@ export function ActivityClient() {
   const q = useActivity(address)
 
   return (
-    <div className="mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10">
-      <PageHeader eyebrow="Activity · Arc" title="Everything you moved." description="Exchanges, bridges, payments and claims made through XyloNet, newest first, rebuilt from public chain and routing data for the wallet you connect." />
+    <div className={cn('mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10', !isConnected && 'lg:max-w-[640px] lg:pt-28 lg:pb-32')}>
+      <PageHeader align={isConnected ? 'left' : 'center-lg'} eyebrow="Activity · Arc" title="Everything you moved." description="Exchanges, bridges, payments and claims made through XyloNet, newest first, rebuilt from public chain and routing data for the wallet you connect." />
 
-      <div className="mt-8 max-w-[760px]">
+      <div className={cn('mt-8 max-w-[760px]', !isConnected && 'lg:mx-auto lg:max-w-none')}>
         {!isConnected ? (
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-card">
-            <p className="text-[15px] text-ink-2">Connect a wallet to see its activity. Nothing is stored on our side; the list is rebuilt from public chain and routing data each time.</p>
-            <div className="mt-4">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-card lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+            <p className="text-[15px] text-ink-2 lg:hidden">Connect a wallet to see its activity, rebuilt from public chain and routing data.</p>
+            <div className="mt-4 lg:mt-0 lg:flex lg:justify-center">
               <ConnectButton />
             </div>
           </div>
@@ -49,7 +50,7 @@ export function ActivityClient() {
           <EmptyState
             icon={Inbox}
             title="No activity yet"
-            description="Your exchanges, bridges and payments will appear here the moment they settle."
+            description="Your exchanges, bridges and payments appear here within a minute or so of settling."
             action={
               <div className="flex gap-2">
                 <Button size="sm" render={<Link href="/pay" />}>

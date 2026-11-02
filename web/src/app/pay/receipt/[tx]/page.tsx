@@ -45,6 +45,9 @@ export default async function ReceiptPage({ params }: { params: Promise<{ tx: st
   const isDollar = asset.currencyPrefix === '$'
   return (
     <div className="mx-auto max-w-[640px] px-4 pb-16 pt-10 sm:px-5">
+      <h1 className="sr-only">
+        Receipt: {formatAmount(amount, asset.fractionDigits)} {r.symbol} to @{r.handle}
+      </h1>
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <span className="type-eyebrow">Receipt · Arc</span>
@@ -71,7 +74,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ tx: st
               <div className="text-[14px]">{formatDateTime(r.timestamp * 1000)}</div>
             </div>
           </div>
-          {r.message && <p className="mt-5 border-l-2 border-signal pl-3 text-[16px] italic text-ink-2">“{r.message}”</p>}
+          {r.message && <p className="mt-5 border-l-2 border-signal pl-3 text-[16px] text-ink-2">“{r.message}”</p>}
           <div className="mt-6">
             <TrustPanel
               rows={[

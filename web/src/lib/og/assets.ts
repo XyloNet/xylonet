@@ -2,28 +2,31 @@ import 'server-only'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-// token-exempt: share-image colours mirror globals.css tokens (paper, card, ink, signal)
+// token-exempt: share-image colours mirror globals.css tokens (navy ground, card, white ink, mint signal)
 export const OG = {
-  PAPER: '#f4f1ea', // token-exempt
-  CARD: '#fffdf8', // token-exempt
-  INK: '#121212', // token-exempt
-  INK2: '#4b4740', // token-exempt
-  INK3: '#6b665d', // token-exempt
-  SIGNAL: '#e8461b', // token-exempt
-  SIGNAL_DEEP: '#b9350f', // token-exempt
-  TINT: '#fbe3da', // token-exempt
-  LINE: 'rgba(18,18,18,0.14)', // token-exempt
+  PAPER: '#191e29', // token-exempt
+  CARD: '#1f2634', // token-exempt
+  INK: '#ffffff', // token-exempt
+  INK2: '#b9bfca', // token-exempt
+  INK3: '#8f96a3', // token-exempt
+  SIGNAL: '#01c38d', // token-exempt
+  SIGNAL_DEEP: '#2adba6', // token-exempt
+  TINT: '#143a34', // token-exempt
+  LINE: 'rgba(255,255,255,0.14)', // token-exempt
+  /** QR codes stay dark-on-white so every scanner reads them. */
+  QR_INK: '#191e29', // token-exempt
+  QR_PAPER: '#ffffff', // token-exempt
 } as const
 
 export const OG_SIZE = { width: 1200, height: 630 }
 
-type OgFont = { name: string; data: Buffer; weight: 400 | 500 | 600; style: 'normal' | 'italic' }
+type OgFont = { name: string; data: Buffer; weight: 400 | 500 | 600 | 700 | 800; style: 'normal' | 'italic' }
 
 const FONT_FILES: Array<[string, string, OgFont['weight'], OgFont['style']]> = [
-  ['Fraunces', 'fraunces-latin-400-normal.ttf', 400, 'normal'],
-  ['Fraunces', 'fraunces-latin-400-italic.ttf', 400, 'italic'],
-  ['Instrument Sans', 'instrument-sans-latin-500-normal.ttf', 500, 'normal'],
-  ['Instrument Sans', 'instrument-sans-latin-600-normal.ttf', 600, 'normal'],
+  ['Manrope', 'manrope-latin-500-normal.woff', 500, 'normal'],
+  ['Manrope', 'manrope-latin-600-normal.woff', 600, 'normal'],
+  ['Manrope', 'manrope-latin-700-normal.woff', 700, 'normal'],
+  ['Manrope', 'manrope-latin-800-normal.woff', 800, 'normal'],
   ['Geist Mono', 'geist-mono-latin-400-normal.ttf', 400, 'normal'],
 ]
 

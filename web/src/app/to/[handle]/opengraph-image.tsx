@@ -39,7 +39,7 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
     publicDataUri('tokens/usdc.svg', 'image/svg+xml'),
     publicDataUri('chains/5042.png', 'image/png'),
     h ? getXAvatar(h) : Promise.resolve(null),
-    QRCode.toString(`https://www.${link}`, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: OG.INK, light: OG.CARD } }),
+    QRCode.toString(`https://www.${link}`, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: OG.QR_INK, light: OG.QR_PAPER } }),
   ])
   const qrUri = `data:image/svg+xml;base64,${Buffer.from(qr).toString('base64')}`
   const name = h ? `@${h}` : 'anyone on X'
@@ -47,7 +47,7 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
 
   return new ImageResponse(
     (
-      <div style={{ width: '100%', height: '100%', display: 'flex', background: OG.PAPER, color: OG.INK, padding: '52px 56px', fontFamily: 'Instrument Sans' }}>
+      <div style={{ width: '100%', height: '100%', display: 'flex', background: OG.PAPER, color: OG.INK, padding: '52px 56px', fontFamily: 'Manrope' }}>
         {/* left: who you are paying */}
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 40 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -63,17 +63,17 @@ export default async function Image({ params }: { params: Promise<{ handle: stri
                 // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
                 <img src={avatar} width={118} height={118} style={{ borderRadius: 59, objectFit: 'cover' }} />
               ) : (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 118, height: 118, borderRadius: 59, background: OG.TINT, color: OG.SIGNAL_DEEP, fontFamily: 'Fraunces', fontSize: 64 }}>{(h ?? 'x').charAt(0).toUpperCase()}</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 118, height: 118, borderRadius: 59, background: OG.TINT, color: OG.SIGNAL_DEEP, fontFamily: 'Manrope', fontWeight: 700, fontSize: 64 }}>{(h ?? 'x').charAt(0).toUpperCase()}</div>
               )}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 500 }}>
               <span style={{ fontSize: 30, fontWeight: 500, color: OG.INK3 }}>Pay</span>
-              <span style={{ fontFamily: 'Fraunces', fontSize: big, lineHeight: 1.05, letterSpacing: -2 }}>{name}</span>
+              <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: big, lineHeight: 1.05, letterSpacing: -2 }}>{name}</span>
             </div>
           </div>
 
-          <div style={{ display: 'flex', marginTop: 22, fontFamily: 'Fraunces', fontSize: 46, letterSpacing: -1 }}>
-            in dollars,&nbsp;<span style={{ fontStyle: 'italic', color: OG.SIGNAL }}>instantly.</span>
+          <div style={{ display: 'flex', marginTop: 22, fontFamily: 'Manrope', fontWeight: 700, fontSize: 46, letterSpacing: -1 }}>
+            in dollars,&nbsp;<span style={{ color: OG.SIGNAL }}>instantly.</span>
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 30 }}>

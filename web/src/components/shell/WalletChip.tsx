@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useBalance } from 'wagmi'
-import { Check, Copy, ExternalLink, LogOut, Wallet, Zap } from 'lucide-react'
+import { Check, Copy, ExternalLink, LogOut, UserRound, Wallet, Zap } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -27,7 +28,7 @@ export function WalletChip({ className }: { className?: string }) {
     return (
       <Button size="lg" className={cn('h-9 px-3.5 font-semibold', className)} onClick={openConnect}>
         <Wallet data-icon="inline-start" />
-        Connect
+        Connect wallet
       </Button>
     )
   }
@@ -57,7 +58,7 @@ function AccountChip({ className, address }: { className?: string; address: stri
           <button
             type="button"
             className={cn(
-              'inline-flex h-9 items-center gap-2 rounded-lg border border-line-2 bg-card px-2.5 text-[13px] font-medium text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50',
+              'inline-flex h-9 items-center gap-2 rounded-lg border border-line-2 bg-card px-2.5 text-[13px] font-medium text-foreground outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/80',
               className,
             )}
             aria-label={`Account ${shortAddress(address)}${onArc ? ', on Arc' : ', not on Arc'}`}
@@ -89,6 +90,10 @@ function AccountChip({ className, address }: { className?: string; address: stri
               {switching ? 'Switching…' : 'Switch to Arc'}
             </Button>
           )}
+          <Button variant="outline" size="lg" className="mt-3 hidden w-full md:inline-flex" render={<Link href="/dashboard" />} onClick={() => setOpen(false)}>
+            <UserRound data-icon="inline-start" />
+            Account
+          </Button>
         </div>
         <Separator />
         <div className="grid grid-cols-3 gap-1 p-2">

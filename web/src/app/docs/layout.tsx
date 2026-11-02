@@ -84,7 +84,7 @@ function DocsNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () =
                     onClick={onNavigate}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'block rounded-md px-2.5 py-1.5 text-[14px] outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50',
+                      'block rounded-md px-2.5 py-1.5 text-[14px] outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80',
                       active ? 'bg-signal-tint font-medium text-signal-deep' : 'text-ink-2 hover:bg-muted hover:text-foreground',
                     )}
                   >
@@ -105,7 +105,7 @@ function DocsNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () =
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[14px] text-ink-2 outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
+                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[14px] text-ink-2 outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/80"
               >
                 {l.name}
                 <ExternalLink className="size-3.5 text-ink-3" aria-hidden />
@@ -177,7 +177,7 @@ function OnThisPage({ pathname }: { pathname: string }) {
               href={`#${h.id}`}
               aria-current={active === h.id ? 'location' : undefined}
               className={cn(
-                '-ml-px block border-l py-0.5 pl-3 leading-snug outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50',
+                '-ml-px block border-l py-0.5 pl-3 leading-snug outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80',
                 active === h.id ? 'border-signal text-foreground' : 'border-transparent text-ink-3 hover:text-foreground',
               )}
             >
@@ -221,7 +221,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         <section id="docs-main" aria-label="Documentation" className="min-w-0 pb-16 pt-6 md:pt-8">
           <div className="mb-6 flex items-center justify-between gap-3 lg:hidden">
             <div className="min-w-0 truncate text-[13px] text-ink-3">
-              <Link href="/docs" className="text-ink-2 underline-offset-4 hover:underline">
+              <Link href="/docs" className="text-ink-2 underline underline-offset-4 decoration-current/60 hover:decoration-current">
                 Docs
               </Link>
               <span className="mx-1.5" aria-hidden>

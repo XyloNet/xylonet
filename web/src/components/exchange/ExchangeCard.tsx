@@ -141,7 +141,7 @@ export function ExchangeCard() {
 
       <div className="relative my-2 flex justify-center">
         <span className="absolute inset-x-0 top-1/2 h-px bg-border" aria-hidden />
-        <button type="button" onClick={flip} aria-label="Swap direction" className="relative grid size-9 place-items-center rounded-full border border-border bg-card text-ink-2 outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50">
+        <button type="button" onClick={flip} aria-label="Swap direction" className="relative grid size-9 place-items-center rounded-full border border-border bg-card text-ink-2 outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/80">
           <ArrowDownUp className="size-4" />
         </button>
       </div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Geist_Mono, Instrument_Sans } from 'next/font/google'
+import { Geist_Mono, Manrope } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { Providers } from '@/components/Providers'
@@ -9,21 +9,13 @@ import { Footer } from '@/components/shell/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { RegisterSW } from '@/components/pwa/RegisterSW'
 
-// Three faces, three jobs. Variables live on <html> so every descendant,
-// including portals, inherits them (the v1 bug was a variable set on <body>
-// and read at :root).
-const sans = Instrument_Sans({
+// Two faces, two jobs: Manrope (the web stand-in for the brand's Gotham) for
+// UI and display, Geist Mono for data. Variables live on <html> so every
+// descendant, including portals, inherits them (the v1 bug was a variable set
+// on <body> and read at :root).
+const sans = Manrope({
   subsets: ['latin'],
   variable: '--font-sans-app',
-  display: 'swap',
-  axes: ['wdth'],
-})
-const display = Fraunces({
-  subsets: ['latin'],
-  weight: 'variable',
-  style: ['normal', 'italic'],
-  axes: ['SOFT', 'WONK', 'opsz'],
-  variable: '--font-display-app',
   display: 'swap',
 })
 const mono = Geist_Mono({
@@ -58,7 +50,7 @@ export const metadata: Metadata = {
     siteName: 'XyloNet',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/og.png?v=3', width: 1200, height: 630, alt: 'XyloNet on Arc' }],
+    images: [{ url: '/og.png?v=4', width: 1200, height: 630, alt: 'XyloNet on Arc' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -66,7 +58,7 @@ export const metadata: Metadata = {
     description: 'Pay, exchange and move dollars on Arc. Settled instantly.',
     creator: '@Xylonet_',
     site: '@Xylonet_',
-    images: ['/og.png?v=3'],
+    images: ['/og.png?v=4'],
   },
   verification: {
     google: 'googleacc01605102cb694',
@@ -83,10 +75,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f4f1ea' }, // token-exempt: meta tag, mirrors --background
-    { media: '(prefers-color-scheme: dark)', color: '#0f0e0c' }, // token-exempt: meta tag, mirrors --background
-  ],
+  themeColor: '#191e29', // token-exempt: meta tag for the dark default; ThemeColorMeta updates it when the theme changes
 }
 
 const organizationJsonLd = {
@@ -108,7 +97,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <Script
           id="organization-jsonld"

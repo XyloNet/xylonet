@@ -200,7 +200,7 @@ export function UnifiedCard() {
             ['deposit', 'Deposit', ArrowDownToLine],
           ] as const
         ).map(([k, l, Icon]) => (
-          <button key={k} role="tab" aria-selected={mode === k} type="button" onClick={() => setMode(k)} className={cn('inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50', mode === k ? 'bg-card text-foreground shadow-card' : 'text-ink-2 hover:text-foreground')}>
+          <button key={k} role="tab" aria-selected={mode === k} type="button" onClick={() => setMode(k)} className={cn('inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80', mode === k ? 'bg-card text-foreground shadow-card' : 'text-ink-2 hover:text-foreground')}>
             <Icon className="size-3.5" /> {l}
           </button>
         ))}
@@ -264,7 +264,7 @@ export function UnifiedCard() {
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               aria-invalid={recipient.trim() !== '' && !toValid ? true : undefined}
-              className="mt-1 h-10 w-full rounded-lg border border-border bg-background px-3 font-mono text-[13px] outline-none placeholder:text-ink-3 focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="mt-1 h-10 w-full rounded-lg border border-border bg-background px-3 font-mono text-[13px] outline-none placeholder:text-ink-3 focus-visible:ring-3 focus-visible:ring-ring/80"
             />
             <p className="mt-1 text-[12px] text-ink-3">Leave empty to mint to your own wallet.</p>
           </div>

@@ -33,7 +33,7 @@ export function Stepper({ steps, className }: { steps: Step[]; className?: strin
           <span
             className={cn(
               'grid size-[18px] place-items-center rounded-full border-2 text-[11px] font-extrabold',
-              s.state === 'done' && 'border-signal bg-signal text-primary-foreground',
+              s.state === 'done' && 'border-signal bg-signal text-signal-foreground',
               s.state === 'active' && 'border-signal-deep shadow-[0_0_0_4px_var(--signal-tint)]',
               s.state === 'pending' && 'border-line-2',
               s.state === 'error' && 'border-bad bg-bad text-card',

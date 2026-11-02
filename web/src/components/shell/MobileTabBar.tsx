@@ -35,7 +35,7 @@ export function MobileTabBar() {
                   href={item.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'flex flex-col items-center justify-center gap-1 text-[11px] font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50',
+                    'flex flex-col items-center justify-center gap-1 text-[11px] font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/80',
                     active ? 'text-signal-deep' : 'text-ink-3',
                   )}
                 >
@@ -54,7 +54,7 @@ export function MobileTabBar() {
               aria-haspopup="dialog"
               aria-expanded={more}
               className={cn(
-                'flex flex-col items-center justify-center gap-1 text-[11px] font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50',
+                'flex flex-col items-center justify-center gap-1 text-[11px] font-medium outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/80',
                 moreActive ? 'text-signal-deep' : 'text-ink-3',
               )}
             >

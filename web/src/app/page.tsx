@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
-import { Story } from '@/components/home/Story'
-import { ConnectedStrip } from '@/components/home/ConnectedStrip'
+import { Hero } from '@/components/home/Hero'
+import { RecentActivity } from '@/components/home/RecentActivity'
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/** Home is the landing for everyone; a connected wallet gets a strip into its dashboard. */
+/** Home: the welcome and the three tiles paint with the HTML; recent activity fills in on the client. */
 export default function HomePage() {
   return (
     <>
-      <ConnectedStrip />
-      <Story />
+      <Hero />
+      <RecentActivity />
     </>
   )
 }

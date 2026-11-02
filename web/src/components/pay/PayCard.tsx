@@ -131,7 +131,7 @@ export function PayCard({ initialTo = '', initialAmount = '5', initialNote = '',
           <Amount value={Number(formatUnits(r.amount, dec))} size="hero" dollar={isDollar} currency={isDollar ? undefined : sym} format={asset.fractionDigits} />
           <span className="text-[15px] font-medium text-ink-3">to {r.mode === 'handle' ? `@${r.to}` : r.to.slice(0, 6) + '…' + r.to.slice(-4)}</span>
         </div>
-        {r.message && <p className="mt-2 text-[15px] italic text-ink-2">“{r.message}”</p>}
+        {r.message && <p className="mt-2 text-[15px] text-ink-2">“{r.message}”</p>}
         <div className="mt-5">
           <TrustPanel
             rows={
@@ -229,7 +229,7 @@ export function PayCard({ initialTo = '', initialAmount = '5', initialNote = '',
                 setPreset(a.key === 'USDC' ? (PRESETS.includes(a.defaultAmount) ? a.defaultAmount : null) : a.quickPicks.includes(a.defaultAmount) ? a.defaultAmount : null)
                 p.reset()
               }}
-              className={cn('inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50', assetKey === a.key ? 'bg-card text-foreground shadow-card' : 'text-ink-2 hover:text-foreground')}
+              className={cn('inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80', assetKey === a.key ? 'bg-card text-foreground shadow-card' : 'text-ink-2 hover:text-foreground')}
             >
               <TokenLogo symbol={a.key} size={16} /> {a.token.symbol}
             </button>
@@ -274,7 +274,7 @@ export function PayCard({ initialTo = '', initialAmount = '5', initialNote = '',
                 setPreset(v)
               }}
               className={cn(
-                'h-8 rounded-md border px-3 font-mono text-[13px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50',
+                'h-8 rounded-md border px-3 font-mono text-[13px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80',
                 preset === v ? 'border-foreground bg-secondary text-foreground' : 'border-line-2 bg-card text-ink-2 hover:text-foreground',
               )}
             >

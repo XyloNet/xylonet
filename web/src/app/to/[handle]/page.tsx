@@ -47,7 +47,7 @@ export default async function CreatorPage({ params, searchParams }: { params: Pr
   if (!h) notFound()
   const [info, qr] = await Promise.all([
     readHandleInfo(h).catch(() => null),
-    QRCode.toString(`${APP_URL}/to/${h}`, { type: 'svg', margin: 1, width: 160, color: { dark: '#121212', light: '#00000000' } }), // token-exempt: QR ink mirrors --foreground
+    QRCode.toString(`${APP_URL}/to/${h}`, { type: 'svg', margin: 1, width: 160, color: { dark: '#191e29', light: '#ffffff' } }), // token-exempt: QR stays dark on white so every scanner reads it
   ])
   const amount = sp.amount && /^\d+(\.\d+)?$/.test(sp.amount) ? sp.amount : '5'
   const note = (sp.note ?? '').slice(0, 280)
@@ -75,7 +75,7 @@ export default async function CreatorPage({ params, searchParams }: { params: Pr
             )}
           </div>
         </div>
-        <Link href="/pay/creator" className="text-[13.5px] text-signal-deep underline-offset-4 hover:underline">
+        <Link href="/pay/creator" className="text-[13.5px] text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current">
           Is this you? Claim your tips
         </Link>
       </header>
@@ -89,7 +89,7 @@ export default async function CreatorPage({ params, searchParams }: { params: Pr
             <div className="type-eyebrow">Pay link</div>
             <div className="mt-3 flex flex-wrap items-start gap-5">
               <div className="rounded-lg border border-border bg-white p-2 [&_svg]:block [&_svg]:size-[136px]" dangerouslySetInnerHTML={{ __html: qr }} aria-label={`QR code for ${APP_URL}/to/${h}`} role="img" />
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 basis-[220px]">
                 <CopyField value={`${APP_URL}/to/${h}`} label="Link" />
                 <p className="mt-2 text-[13px] text-ink-3">Anyone with this link or code can pay @{h} in USDC. Add <span className="font-mono">?amount=5</span> to preset an amount.</p>
               </div>

@@ -152,14 +152,14 @@ export function DocTable({ head, rows, className }: { head: React.ReactNode[]; r
 
 export function AddressLink({ address, href, className }: { address: string; href: string; className?: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={cn('break-all font-mono text-[13px] text-signal-deep underline-offset-4 hover:underline', className)}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cn('break-all font-mono text-[13px] text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current', className)}>
       {address}
     </a>
   )
 }
 
 export function A({ href, children, className, external }: { href: string; children: React.ReactNode; className?: string; external?: boolean }) {
-  const cls = cn('text-signal-deep underline-offset-4 hover:underline', className)
+  const cls = cn('text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current', className)
   const isExternal = external ?? /^https?:\/\//.test(href)
   if (isExternal) {
     return (
@@ -189,7 +189,7 @@ export function LinkCard({ href, title, description, icon }: { href: string; tit
       </span>
     </>
   )
-  const cls = 'group flex gap-3 rounded-xl border border-border bg-card p-4 outline-none transition-colors hover:border-line-2 focus-visible:ring-3 focus-visible:ring-ring/50'
+  const cls = 'group flex gap-3 rounded-xl border border-border bg-card p-4 outline-none transition-colors hover:border-line-2 focus-visible:ring-3 focus-visible:ring-ring/80'
   if (isExternal) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
@@ -220,7 +220,7 @@ export function FaqList({ items }: { items: Array<{ q: string; a: React.ReactNod
     <div className="grid gap-2">
       {items.map((f) => (
         <details key={f.q} className="group rounded-xl border border-border bg-card open:border-line-2">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3.5 text-[15px] font-medium text-foreground outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3.5 text-[15px] font-medium text-foreground outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/80 [&::-webkit-details-marker]:hidden">
             {f.q}
             <span className="shrink-0 font-mono text-ink-3 transition-transform group-open:rotate-45" aria-hidden>
               +

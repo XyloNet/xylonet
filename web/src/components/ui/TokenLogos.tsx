@@ -20,11 +20,13 @@ interface ChainLogoMeta {
   name: string
   /** Square tile artwork meant to be masked to a circle (no inner padding). */
   tile?: boolean
+  /** Dark glyph on a transparent background: sit it on a white tile so it reads on dark surfaces. */
+  lightTile?: boolean
 }
 
 /** chainId -> official mark. Keys mirror `bridgeChains` in src/config/wagmi.ts. */
 export const CHAIN_LOGOS: Record<number, ChainLogoMeta> = {
-  5042: { src: '/chains/5042.png', name: 'Arc' },
+  5042: { src: '/chains/5042.png', name: 'Arc', lightTile: true },
   1: { src: '/chains/1.svg', name: 'Ethereum', tile: true },
   42161: { src: '/chains/42161.svg', name: 'Arbitrum', tile: true },
   8453: { src: '/chains/8453.svg', name: 'Base', tile: true },
@@ -62,6 +64,7 @@ function LogoFrame({
   alt,
   padded,
   fallback,
+  light = false,
 }: {
   size: number
   className: string
@@ -69,6 +72,8 @@ function LogoFrame({
   alt: string
   padded: boolean
   fallback: string
+  /** White tile behind glyphs drawn for light backgrounds (the Arc mark). */
+  light?: boolean
 }) {
   const [failed, setFailed] = useState(false)
   const showImage = !!src && !failed
@@ -77,7 +82,7 @@ function LogoFrame({
     <span
       role="img"
       aria-label={alt}
-      className={`inline-flex shrink-0 items-center justify-center rounded-full overflow-hidden bg-white/5 ring-1 ring-white/10 ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center rounded-full overflow-hidden ${light ? 'bg-plate-foreground' : 'bg-surface-2'} ring-1 ring-border ${className}`}
       style={{ width: size, height: size }}
     >
       {showImage ? (
@@ -93,7 +98,7 @@ function LogoFrame({
         />
       ) : (
         <span
-          className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0A786A] to-[#01C38E] text-white font-bold leading-none"
+          className="w-full h-full flex items-center justify-center bg-signal text-signal-foreground font-bold leading-none"
           style={{ fontSize: Math.max(8, Math.round(size * 0.42)) }}
         >
           {fallback}
@@ -118,6 +123,7 @@ export function ChainLogo({
       src={meta?.src ?? null}
       alt={label}
       padded={!meta?.tile}
+      light={!!meta?.lightTile}
       fallback={label.charAt(0).toUpperCase()}
     />
   )

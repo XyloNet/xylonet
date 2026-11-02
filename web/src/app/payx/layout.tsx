@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'XyloNet',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'PayX by XyloNet' }],
+    images: [{ url: '/og.png?v=4', width: 1200, height: 630, alt: 'PayX by XyloNet' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: 'Tip any X account in USDC on Arc mainnet. Sign in with X to claim.',
     creator: '@Xylonet_',
     site: '@Xylonet_',
-    images: ['/og.png'],
+    images: ['/og.png?v=4'],
   },
   verification: {
     google: 'googleacc01605102cb694',

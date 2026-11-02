@@ -12,34 +12,34 @@ export const lifiTheme: WidgetTheme = {
     light: {
       palette: {
         mode: 'light',
-        primary: { main: '#e8461b', contrastText: '#121212' }, // token-exempt
-        secondary: { main: '#b9350f' }, // token-exempt
-        background: { paper: '#fffdf8', default: '#f4f1ea' }, // token-exempt
-        text: { primary: '#121212', secondary: '#4b4740', disabled: '#6b665d' }, // token-exempt
-        success: { main: '#b9350f' }, // token-exempt
+        primary: { main: '#01c38d', contrastText: '#191e29' }, // token-exempt
+        secondary: { main: '#0a786a' }, // token-exempt
+        background: { paper: '#ffffff', default: '#f5f7fa' }, // token-exempt
+        text: { primary: '#191e29', secondary: '#3f4653', disabled: '#5e6573' }, // token-exempt
+        success: { main: '#0a786a' }, // token-exempt
         warning: { main: '#8a5a00' }, // token-exempt
         error: { main: '#b3261e' }, // token-exempt
         info: { main: '#2856b8' }, // token-exempt
-        divider: 'rgba(18, 18, 18, 0.10)', // token-exempt
+        divider: 'rgba(25, 30, 41, 0.10)', // token-exempt
         grey: {
-          100: '#f4f1ea', 200: '#ece7dd', 300: '#e3ddd0', 400: '#c9c2b4', 500: '#8c8477', 600: '#6b665d', 700: '#4b4740', 800: '#2a2622', 900: '#121212', // token-exempt
+          100: '#f5f7fa', 200: '#edf0f4', 300: '#e4e8ee', 400: '#c5cad3', 500: '#8f96a3', 600: '#5e6573', 700: '#3f4653', 800: '#262e3c', 900: '#191e29', // token-exempt
         },
       },
     },
     dark: {
       palette: {
         mode: 'dark',
-        primary: { main: '#e8461b', contrastText: '#121212' }, // token-exempt
-        secondary: { main: '#ff6e45' }, // token-exempt
-        background: { paper: '#171512', default: '#0f0e0c' }, // token-exempt
-        text: { primary: '#f1ece2', secondary: '#b8b0a3', disabled: '#8c8477' }, // token-exempt
-        success: { main: '#ff6e45' }, // token-exempt
-        warning: { main: '#f0b747' }, // token-exempt
-        error: { main: '#f26d65' }, // token-exempt
-        info: { main: '#7faef7' }, // token-exempt
-        divider: 'rgba(241, 236, 226, 0.10)', // token-exempt
+        primary: { main: '#01c38d', contrastText: '#191e29' }, // token-exempt
+        secondary: { main: '#2adba6' }, // token-exempt
+        background: { paper: '#1f2634', default: '#191e29' }, // token-exempt
+        text: { primary: '#ffffff', secondary: '#b9bfca', disabled: '#8f96a3' }, // token-exempt
+        success: { main: '#01c38d' }, // token-exempt
+        warning: { main: '#f5b942' }, // token-exempt
+        error: { main: '#f5837b' }, // token-exempt
+        info: { main: '#5ba7f7' }, // token-exempt
+        divider: 'rgba(255, 255, 255, 0.10)', // token-exempt
         grey: {
-          100: '#221f1b', 200: '#2a2622', 300: '#34302a', 400: '#433e37', 500: '#6e685e', 600: '#8c8477', 700: '#b8b0a3', 800: '#d9d2c5', 900: '#f1ece2', // token-exempt
+          100: '#262e3c', 200: '#2c3544', 300: '#35404f', 400: '#46515f', 500: '#696e79', 600: '#8f96a3', 700: '#b9bfca', 800: '#dde1e7', 900: '#ffffff', // token-exempt
         },
       },
     },

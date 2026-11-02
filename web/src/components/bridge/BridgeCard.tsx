@@ -3,9 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useBalance } from 'wagmi'
 import { formatUnits } from 'viem'
-import { ArrowDown, RotateCcw, Zap } from 'lucide-react'
+import { ArrowDownUp, RotateCcw, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { ChainLogo, TokenLogo } from '@/components/ui/TokenLogos'
 import { Amount } from '@/components/xylo/Amount'
 import { Address } from '@/components/xylo/Address'
@@ -27,6 +26,21 @@ const STEP_LABELS: Record<string, (s: BridgeChain, d: BridgeChain, amt: string) 
   burn: (s, _d, amt) => `Burn ${amt || ''} USDC on ${s.name}`.replace('  ', ' '),
   attest: () => 'Circle attestation',
   mint: (_s, d) => `Mint on ${d.name}`,
+}
+
+const SPEEDS: readonly { key: Speed; label: string; fee: string }[] = [
+  { key: 'FAST', label: 'Fast', fee: 'small CCTP fee' },
+  { key: 'SLOW', label: 'Standard', fee: 'no CCTP fee' },
+]
+
+/** The token chip is fixed: CCTP moves native USDC only, so there is nothing to choose. */
+function UsdcChip() {
+  return (
+    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-lg border border-border bg-secondary px-3 text-[14px] font-semibold text-foreground">
+      <TokenLogo symbol="USDC" size={18} />
+      USDC
+    </span>
+  )
 }
 
 export function BridgeCard() {
@@ -117,6 +131,12 @@ export function BridgeCard() {
     if (!isConnected) return openConnect()
     if (!validAmount || tooMuch) return
     void b.bridge(source, dest, amount, speed)
+  }
+
+  /** Flip to-arc / from-arc. The counterparty chain stays; the estimate is redone. */
+  const flip = () => {
+    setDirection((d) => (d === 'to-arc' ? 'from-arc' : 'to-arc'))
+    setEst(null)
   }
 
   const cta = !isConnected
@@ -216,39 +236,10 @@ export function BridgeCard() {
   // ── form ─────────────────────────────────────────────────────────────────
   return (
     <div className="p-4 sm:p-5">
-      {/* direction */}
-      <div className="grid grid-cols-2 rounded-lg bg-secondary p-1" role="tablist" aria-label="Direction">
-        {(
-          [
-            ['to-arc', 'Bring dollars to Arc'],
-            ['from-arc', 'Send dollars from Arc'],
-          ] as const
-        ).map(([k, l]) => (
-          <button
-            key={k}
-            role="tab"
-            aria-selected={direction === k}
-            type="button"
-            onClick={() => {
-              setDirection(k)
-              setEst(null)
-            }}
-            className={cn(
-              'h-9 rounded-md text-[13.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50',
-              direction === k ? 'bg-card text-foreground shadow-card' : 'text-ink-2 hover:text-foreground',
-            )}
-          >
-            {l}
-          </button>
-        ))}
-      </div>
-
       {/* from */}
-      <div className="mt-4 rounded-xl border border-border bg-background p-4">
-        <div className="flex items-center justify-between gap-3">
-          <Label htmlFor="bridge-amount" className="text-[13px] text-ink-3">
-            You send from
-          </Label>
+      <div className="rounded-xl border border-border bg-background p-4">
+        <div className="text-[13px] font-medium text-ink-2">From</div>
+        <div className="mt-2 flex items-center justify-between gap-2">
           <ChainPicker
             label="Source chain"
             chains={direction === 'to-arc' ? COUNTERPARTY_CHAINS : [ARC]}
@@ -257,52 +248,67 @@ export function BridgeCard() {
             address={address}
             disabled={direction === 'from-arc'}
           />
+          <UsdcChip />
         </div>
-        <div className="mt-3 flex items-center gap-3">
-          <input
-            id="bridge-amount"
-            inputMode="decimal"
-            autoComplete="off"
-            placeholder="0.00"
-            value={amount}
-            onChange={(e) => {
-              const v = e.target.value.replace(/[^0-9.]/g, '')
-              if ((v.match(/\./g) ?? []).length > 1) return
-              const [, dec] = v.split('.')
-              if (dec && dec.length > 6) return
-              setAmount(v)
-            }}
-            aria-invalid={tooMuch || undefined}
-            aria-describedby="bridge-balance"
-            className="w-full min-w-0 flex-1 bg-transparent font-mono text-[32px] font-medium tracking-[-0.01em] text-foreground outline-none placeholder:text-ink-3"
-          />
-          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-secondary px-2 py-1 text-[13px] font-semibold">
-            <TokenLogo symbol="USDC" size={16} /> USDC
-          </span>
-        </div>
-        <div id="bridge-balance" className="mt-2 flex items-center justify-between text-[12.5px] text-ink-3">
-          <span className={cn(tooMuch && 'text-bad')}>
-            {address ? (balance != null ? `Balance ${formatAmount(balance)} USDC` : 'Loading balance…') : 'Connect to see your balance'}
-          </span>
-          {balance != null && balance > 0 && (
-            <button type="button" className="font-semibold text-signal-deep hover:underline" onClick={() => setAmount(String(balance))}>
-              Max
-            </button>
+        <div
+          className={cn(
+            'mt-3 rounded-lg border border-border bg-card px-3 py-2.5 transition-colors focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/80',
+            tooMuch && 'border-bad/40',
           )}
+        >
+          <div className="flex items-center gap-3">
+            <input
+              id="bridge-amount"
+              inputMode="decimal"
+              autoComplete="off"
+              placeholder="0.00"
+              aria-label="Amount to bridge"
+              value={amount}
+              onChange={(e) => {
+                const v = e.target.value.replace(/[^0-9.]/g, '')
+                if ((v.match(/\./g) ?? []).length > 1) return
+                const [, dec] = v.split('.')
+                if (dec && dec.length > 6) return
+                setAmount(v)
+              }}
+              aria-invalid={tooMuch || undefined}
+              aria-describedby="bridge-balance"
+              className="w-full min-w-0 flex-1 bg-transparent font-mono text-[32px] font-medium tracking-[-0.01em] text-foreground outline-none placeholder:text-ink-3"
+            />
+            {balance != null && balance > 0 && (
+              <button
+                type="button"
+                onClick={() => setAmount(String(balance))}
+                className="shrink-0 rounded-md bg-secondary px-2.5 py-1 text-[12.5px] font-semibold text-foreground outline-none transition-colors hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring/80"
+              >
+                Max
+              </button>
+            )}
+          </div>
+          <div id="bridge-balance" className={cn('mt-1 text-[12.5px] text-ink-3', tooMuch && 'text-bad')}>
+            {address ? (balance != null ? `Balance ${formatAmount(balance)} USDC` : 'Loading balance…') : 'Connect to see your balance'}
+          </div>
         </div>
       </div>
 
+      {/* swap direction */}
       <div className="relative my-2 flex justify-center">
         <span className="absolute inset-x-0 top-1/2 h-px bg-border" aria-hidden />
-        <span className="relative grid size-8 place-items-center rounded-full border border-border bg-card text-ink-3">
-          <ArrowDown className="size-4" />
-        </span>
+        <button
+          type="button"
+          onClick={flip}
+          aria-label="Swap direction"
+          title="Swap direction"
+          className="relative grid size-10 place-items-center rounded-full border border-signal/40 bg-card text-signal outline-none transition-colors hover:bg-signal-tint focus-visible:ring-3 focus-visible:ring-ring/80"
+        >
+          <ArrowDownUp className="size-4" />
+        </button>
       </div>
 
       {/* to */}
       <div className="rounded-xl border border-border bg-background p-4">
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-[13px] text-ink-3">Arrives on</span>
+        <div className="text-[13px] font-medium text-ink-2">To</div>
+        <div className="mt-2 flex items-center justify-between gap-2">
           <ChainPicker
             label="Destination chain"
             chains={direction === 'from-arc' ? COUNTERPARTY_CHAINS : [ARC]}
@@ -311,66 +317,70 @@ export function BridgeCard() {
             address={address}
             disabled={direction === 'to-arc'}
           />
+          <UsdcChip />
         </div>
-        <div className="mt-3 flex items-baseline justify-between gap-3">
-          <Amount value={receive} size="lg" className={cn(estState === 'loading' && 'opacity-60')} />
-          <span className="inline-flex items-center gap-1.5 text-[13px] text-ink-3">
-            <ChainLogo chainId={dest.chainId} size={14} />
-            {dest.chainId === ARC.chainId ? <span className="font-semibold text-signal-deep">Instant on arrival</span> : expectedTime(source, dest, speed)}
-          </span>
+        <div className="mt-3 rounded-lg border border-border bg-card px-3 py-2.5" aria-live="polite">
+          <div className="text-[12.5px] text-ink-3">You&rsquo;ll receive (estimated)</div>
+          <div className="mt-0.5 flex items-baseline justify-between gap-3">
+            <Amount value={receive} size="lg" className={cn(estState === 'loading' && 'opacity-60')} />
+            <span className="inline-flex items-center gap-1.5 text-[12.5px] text-ink-3">
+              <ChainLogo chainId={dest.chainId} size={14} />
+              {dest.chainId === ARC.chainId ? <span className="font-semibold text-signal-deep">Instant on arrival</span> : expectedTime(source, dest, speed)}
+            </span>
+          </div>
         </div>
       </div>
 
       {/* speed */}
-      <div className="mt-4">
-        <div className="text-[13px] text-ink-3">Transfer speed</div>
-        <div className="mt-1.5 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Transfer speed">
-          {(
-            [
-              ['FAST', 'Fast', 'small CCTP fee'],
-              ['SLOW', 'Standard', 'no CCTP fee'],
-            ] as const
-          ).map(([k, title, sub]) => {
-            const disabled = k === 'FAST' && standardOnly
-            return (
-              <button
-                key={k}
-                type="button"
-                role="radio"
-                aria-checked={speed === k}
-                disabled={disabled}
-                onClick={() => setSpeed(k)}
-                className={cn(
-                  'rounded-lg border px-3 py-2 text-left outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-50',
-                  speed === k ? 'border-signal-deep bg-signal-tint' : 'border-border bg-card hover:bg-muted',
-                )}
-              >
-                <div className="text-[13.5px] font-semibold">{title}</div>
-                <div className="text-[12px] text-ink-2">
-                  {expectedTime(source, dest, k)} · {sub}
-                </div>
-              </button>
-            )
-          })}
+      <div className="mt-3 rounded-xl border border-border bg-background px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+          <span id="bridge-speed-label" className="inline-flex items-center gap-2 text-[13.5px] font-semibold text-foreground">
+            <Zap className="hidden size-4 text-signal sm:block" aria-hidden />
+            Bridge speed
+          </span>
+          <div role="radiogroup" aria-labelledby="bridge-speed-label" className="ml-auto grid grid-cols-2 rounded-lg bg-secondary p-0.5">
+            {SPEEDS.map((s) => {
+              const disabled = s.key === 'FAST' && standardOnly
+              return (
+                <button
+                  key={s.key}
+                  type="button"
+                  role="radio"
+                  aria-checked={speed === s.key}
+                  disabled={disabled}
+                  onClick={() => setSpeed(s.key)}
+                  className={cn(
+                    'h-7 rounded-md px-2.5 text-[12.5px] font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80 disabled:opacity-50 sm:h-8 sm:px-3 sm:text-[13px]',
+                    speed === s.key ? 'bg-card text-foreground ring-1 ring-border' : 'text-ink-2 hover:text-foreground',
+                  )}
+                >
+                  {s.label}
+                </button>
+              )
+            })}
+          </div>
         </div>
-        {standardOnly && <p className="mt-1.5 text-[12.5px] text-ink-3">Fast transfer is not offered from {source.name}; Standard is used.</p>}
+        <p className="mt-1.5 text-[12.5px] text-ink-3">
+          Arrives in {expectedTime(source, dest, speed)} · {SPEEDS.find((s) => s.key === speed)?.fee}
+        </p>
+        {standardOnly && <p className="mt-0.5 text-[12.5px] text-ink-3">Fast transfer is not offered from {source.name}; Standard is used.</p>}
       </div>
 
       {/* costs */}
-      <div className="mt-4">
+      <div className="mt-3">
         <TrustPanel
           summary={2}
           rows={[
             { label: `Arrives on ${dest.name}`, value: receive != null ? `${formatAmount(receive)} USDC` : '—', strong: true },
             {
               label: `Circle CCTP fee${speed === 'SLOW' ? ' (Standard)' : ''}`,
-              value: est ? (est.providerFee > 0 ? `${formatAmount(est.providerFee, { min: 2, max: 6 })} USDC` : '0 USDC') : estState === 'loading' ? 'quoting…' : speed === 'SLOW' ? '0 USDC' : 'quoted before you sign',
+              value: est ? (est.providerFee > 0 ? `${formatAmount(est.providerFee, { min: 2, max: 6 })} USDC` : '0 USDC') : estState === 'loading' ? 'quoting…' : speed === 'SLOW' ? '0 USDC' : 'quoted at signing',
             },
             { label: 'You send', value: validAmount ? `${formatAmount(amountNum)} USDC` : '—' },
             ...(est && est.forwarderFee > 0 ? [{ label: 'Forwarding fee', value: `${formatAmount(est.forwarderFee, { min: 2, max: 6 })} USDC` }] : []),
             {
               label: `Gas on ${source.name}`,
-              value: est?.sourceGas != null ? (source.chainId === ARC.chainId ? formatUsd(est.sourceGas) : `${est.sourceGas.toFixed(6)} ${source.gasSymbol}`) : 'shown in your wallet',
+              value: est?.sourceGas != null ? (source.chainId === ARC.chainId ? formatUsd(est.sourceGas) : `${est.sourceGas.toFixed(6)} ${source.gasSymbol}`) : 'in your wallet',
             },
             ...(dest.chainId !== ARC.chainId
               ? [{ label: `Gas on ${dest.name} to mint`, value: est?.destGas != null ? `${est.destGas.toFixed(6)} ${dest.gasSymbol}` : `needs a little ${dest.gasSymbol}` }]
@@ -388,7 +398,7 @@ export function BridgeCard() {
         {cta}
       </Button>
       <p className="mt-2 text-center text-[12px] text-ink-3">
-        {direction === 'to-arc' ? `Signs on ${source.name}, then mints on Arc.` : `Signs on Arc, then mints on ${dest.name} (you need a little ${dest.gasSymbol} there).`}
+        {dest.chainId !== ARC.chainId ? `Powered by Circle CCTP. Mints on ${dest.name}; you need a little ${dest.gasSymbol} there.` : 'Powered by Circle CCTP.'}
       </p>
     </div>
   )

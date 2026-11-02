@@ -68,11 +68,12 @@ export function ChainPicker({
       type="button"
       disabled={disabled}
       aria-label={`${label}: ${value.name}`}
-      className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-2.5 text-[13.5px] font-semibold outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-60"
+      className="inline-flex h-10 min-w-0 items-center gap-2 rounded-lg border border-border bg-secondary px-3 text-[14px] font-semibold text-foreground outline-none transition-colors hover:bg-accent focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/80 disabled:cursor-default disabled:hover:bg-secondary"
     >
       <ChainLogo chainId={value.chainId} size={18} />
-      {value.name}
-      <ChevronDown className="size-4 text-ink-3" />
+      <span className="truncate">{value.name}</span>
+      {/* A fixed side (Arc) has nothing to open, so it reads as a chip, not a menu. */}
+      {!disabled && <ChevronDown className="size-4 shrink-0 text-ink-3" aria-hidden />}
     </button>
   )
 

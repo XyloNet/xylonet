@@ -28,7 +28,7 @@ export function RecentPayments() {
           ))}
         {tips.slice(0, 6).map((t) => (
           <li key={t.id} className="flex items-center justify-between gap-3">
-            <a href={`${ARC_EXPLORER_URL}/tx/${t.txHash}`} target="_blank" rel="noopener noreferrer" className="min-w-0 rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+            <a href={`${ARC_EXPLORER_URL}/tx/${t.txHash}`} target="_blank" rel="noopener noreferrer" className="min-w-0 rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/80">
               <Identity address={t.tipper} handle={t.handle} size="sm" />
             </a>
             <span className="flex shrink-0 items-baseline gap-2">

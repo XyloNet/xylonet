@@ -80,12 +80,12 @@ export function CreatorClient({ tab, authError, authReason }: { tab: 'claim' | '
 
   if (auth.status === 'signed-out' || !handle) {
     return (
-      <div className="mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10">
-        <PageHeader eyebrow="Your tips · Arc" title={<>Someone may have paid you <em className="text-signal-deep">already.</em></>} description="Sign in with X to see what was sent to your handle, claim it to any wallet, and get your pay link." />
-        <div className="mt-8 max-w-[480px] overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card">
+      <div className="mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10 lg:max-w-[640px] lg:pt-28 lg:pb-32">
+        <PageHeader align="center-lg" eyebrow="Your tips · Arc" title="Someone may have paid you already." description="Sign in with X to see what was sent to your handle, claim it to any wallet, and get your pay link." />
+        <div className="mt-8 max-w-[480px] overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card lg:mx-auto lg:overflow-visible lg:flex lg:max-w-none lg:flex-col lg:items-center lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
           <Button
             size="lg"
-            className="h-11 w-full text-[15px] font-semibold"
+            className="h-11 w-full text-[15px] font-semibold lg:w-auto lg:px-6"
             disabled={auth.busy}
             onClick={() => auth.signIn().catch((e) => setSignInError((e as Error).message))}
           >
@@ -93,11 +93,11 @@ export function CreatorClient({ tab, authError, authReason }: { tab: 'claim' | '
             {auth.busy ? 'Opening X…' : 'Sign in with X'}
           </Button>
           {signInError && (
-            <p className="mt-3 text-[13.5px] text-bad" role="alert">
+            <p className="mt-3 text-[13.5px] text-bad lg:text-center" role="alert">
               {signInError}
             </p>
           )}
-          <p className="mt-3 text-[13px] text-ink-3">We read your public profile only. No posting permission, no wallet needed to sign in.</p>
+          <p className="mt-3 text-[13px] text-ink-3 lg:mt-5 lg:text-center">We read your public profile only. No posting permission, no wallet needed to sign in.</p>
         </div>
       </div>
     )
@@ -438,7 +438,7 @@ function HistoryPanel({ asset, handle, primary, multi }: { asset: PayXAsset; han
           <li key={`${t.timestamp}-${i}`} className="flex items-start justify-between gap-4 px-4 py-3">
             <div className="min-w-0">
               <Identity address={t.tipper} size="sm" />
-              {t.message && <p className="mt-1 text-[14px] italic text-ink-2">“{t.message}”</p>}
+              {t.message && <p className="mt-1 text-[14px] text-ink-2">“{t.message}”</p>}
               <div className="mt-1 text-[12px] text-ink-3" title={formatDateTime(Number(t.timestamp) * 1000)}>
                 {timeAgo(Number(t.timestamp) * 1000)}
               </div>
@@ -460,7 +460,7 @@ function SharePanel({ handle }: { handle: string }) {
     QRCode.toDataURL(url, { margin: 1, width: 320 }).then(setQr).catch(() => setQr(null))
   }, [url])
   const post = `You can pay me in USDC on Arc via @Xylonet_: ${url}`
-  const embed = `<a href="${url}" style="display:inline-block;padding:10px 16px;border-radius:10px;background:#e8461b;color:#121212;font:600 14px sans-serif;text-decoration:none">Pay me in USDC</a>` // token-exempt: embed snippet ships brand colours to other sites
+  const embed = `<a href="${url}" style="display:inline-block;padding:10px 16px;border-radius:10px;background:#01c38d;color:#191e29;font:600 14px sans-serif;text-decoration:none">Pay me in USDC</a>` // token-exempt: embed snippet ships brand colours (Neo Mint fill, Midnight Navy type) to other sites
   return (
     <div className="grid max-w-[720px] gap-4">
       <div className="rounded-xl border border-border bg-card p-5">

@@ -73,7 +73,7 @@ export const TIERS: readonly Tier[] = [
   { name: 'Silver', min: 100, color: '#c0c7d1' },
   { name: 'Gold', min: 1_000, color: '#f5c451' },
   { name: 'Platinum', min: 10_000, color: '#8fd3f4' },
-  { name: 'Diamond', min: 100_000, color: '#7EE8CF' },
+  { name: 'Diamond', min: 100_000, color: '#b9a7ff' }, // lavender, so the top tier never reads as the mint action colour
 ] as const
 
 export function tierFor(points: number): Tier {

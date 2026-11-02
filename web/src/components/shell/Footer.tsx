@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Mark } from './Logo'
+import { Wordmark } from './Wordmark'
 import { ChainLogo } from '@/components/ui/TokenLogos'
 import { ARC_NETWORK } from '@/config/constants'
 import { ThemeToggle } from './ThemeToggle'
@@ -52,16 +53,16 @@ const LINKS = [
 export function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-4 py-6 sm:px-5 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-ink-3">
+      <div className="mx-auto flex max-w-[1120px] flex-col gap-4 px-4 py-6 sm:px-5 md:flex-row md:items-center md:justify-between lg:py-8">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-ink-3 xl:gap-x-5">
           <span className="inline-flex items-center gap-2 text-foreground">
-            <Mark className="h-3.5 text-ink-2" />
-            <span className="font-semibold tracking-[-0.02em]">xylonet</span>
+            <Mark className="h-3.5" fill="brand" />
+            <Wordmark decorative className="h-[11px] w-auto text-foreground" />
           </span>
           <span>Built on Arc by ForgeLabs</span>
           <ChainBadge />
         </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] xl:gap-x-5">
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href} prefetch={false} className="text-ink-3 hover:text-foreground">
               {l.label}

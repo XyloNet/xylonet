@@ -1,5 +1,5 @@
 /* XyloNet service worker: push notifications and a tiny offline fallback. */
-const CACHE = 'xylonet-shell-v1'
+const CACHE = 'xylonet-shell-v2'
 const OFFLINE = '/offline.html'
 
 self.addEventListener('install', (event) => {

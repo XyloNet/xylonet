@@ -28,7 +28,7 @@ export async function receiptCardResponse(tx: string, opts: { showNote?: boolean
     tokenLogo,
     publicDataUri('chains/5042.png', 'image/png'),
     r ? getXAvatar(r.handle) : Promise.resolve(null),
-    QRCode.toString(`https://www.${link}`, { type: 'svg', margin: 0, errorCorrectionLevel: 'L', color: { dark: OG.INK, light: OG.CARD } }),
+    QRCode.toString(`https://www.${link}`, { type: 'svg', margin: 0, errorCorrectionLevel: 'L', color: { dark: OG.QR_INK, light: OG.QR_PAPER } }),
   ])
   const qrUri = `data:image/svg+xml;base64,${Buffer.from(qr).toString('base64')}`
   const sent = r ? formatAmount(Number(formatUnits(r.amount, r.decimals)), asset.fractionDigits) : null
@@ -39,7 +39,7 @@ export async function receiptCardResponse(tx: string, opts: { showNote?: boolean
 
   return new ImageResponse(
     (
-      <div style={{ width: '100%', height: '100%', display: 'flex', background: OG.PAPER, color: OG.INK, padding: '52px 56px', fontFamily: 'Instrument Sans' }}>
+      <div style={{ width: '100%', height: '100%', display: 'flex', background: OG.PAPER, color: OG.INK, padding: '52px 56px', fontFamily: 'Manrope' }}>
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 40 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
@@ -52,7 +52,7 @@ export async function receiptCardResponse(tx: string, opts: { showNote?: boolean
           {r ? (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginTop: 34 }}>
-                <span style={{ fontFamily: 'Fraunces', fontSize: sentSize, lineHeight: 1, letterSpacing: -4 }}>{asset.currencyPrefix}{sent}</span>
+                <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: sentSize, lineHeight: 1, letterSpacing: -4 }}>{asset.currencyPrefix}{sent}</span>
                 <span style={{ fontSize: 34, fontWeight: 500, color: OG.INK3 }}>{asset.token.symbol}</span>
               </div>
 
@@ -63,14 +63,14 @@ export async function receiptCardResponse(tx: string, opts: { showNote?: boolean
                     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
                     <img src={avatar} width={64} height={64} style={{ borderRadius: 32, objectFit: 'cover' }} />
                   ) : (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: 32, background: OG.TINT, color: OG.SIGNAL_DEEP, fontFamily: 'Fraunces', fontSize: 36 }}>{r.handle.charAt(0).toUpperCase()}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: 32, background: OG.TINT, color: OG.SIGNAL_DEEP, fontFamily: 'Manrope', fontWeight: 700, fontSize: 36 }}>{r.handle.charAt(0).toUpperCase()}</div>
                   )}
                 </div>
-                <span style={{ fontFamily: 'Fraunces', fontSize: nameSize, letterSpacing: -1 }}>{name}</span>
+                <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: nameSize, letterSpacing: -1 }}>{name}</span>
               </div>
 
               {showNote && r.message ? (
-                <div style={{ display: 'flex', marginTop: 18, fontFamily: 'Fraunces', fontStyle: 'italic', fontSize: 28, color: OG.INK2, borderLeft: `4px solid ${OG.SIGNAL}`, paddingLeft: 14, maxWidth: 640 }}>“{r.message.slice(0, 90)}”</div>
+                <div style={{ display: 'flex', marginTop: 18, fontFamily: 'Manrope', fontSize: 28, color: OG.INK2, borderLeft: `4px solid ${OG.SIGNAL}`, paddingLeft: 14, maxWidth: 640 }}>“{r.message.slice(0, 90)}”</div>
               ) : null}
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: showNote && r.message ? 22 : 30 }}>
@@ -88,7 +88,7 @@ export async function receiptCardResponse(tx: string, opts: { showNote?: boolean
               </div>
             </div>
           ) : (
-            <span style={{ display: 'flex', marginTop: 90, fontFamily: 'Fraunces', fontSize: 84, letterSpacing: -2 }}>A payment on Arc.</span>
+            <span style={{ display: 'flex', marginTop: 90, fontFamily: 'Manrope', fontWeight: 800, fontSize: 84, letterSpacing: -2 }}>A payment on Arc.</span>
           )}
         </div>
 

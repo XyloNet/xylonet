@@ -86,11 +86,11 @@ export function OneBalanceFunding({ shortfall, onFunded }: { shortfall: number; 
             <>Short on Arc? </>
           )}
           Bring USDC from another chain:{' '}
-          <Link href="/bridge?tab=unified" className="font-semibold text-signal-deep underline-offset-4 hover:underline">
+          <Link href="/bridge?tab=unified" className="font-semibold text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current">
             One balance
           </Link>{' '}
           or{' '}
-          <Link href="/bridge" className="font-semibold text-signal-deep underline-offset-4 hover:underline">
+          <Link href="/bridge" className="font-semibold text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current">
             bridge with CCTP
           </Link>
           .

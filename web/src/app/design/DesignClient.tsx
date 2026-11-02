@@ -25,10 +25,77 @@ import { EmptyState } from '@/components/xylo/EmptyState'
 import { Seam } from '@/components/xylo/Seam'
 import { Identity } from '@/components/xylo/Identity'
 import { Mark } from '@/components/shell/Logo'
+import { Wordmark } from '@/components/shell/Wordmark'
 
-const TOKENS = [
-  ['background', 'Ground'], ['card', 'Surface'], ['surface-2', 'Surface 2'], ['foreground', 'Ink'], ['ink-2', 'Ink 2'], ['ink-3', 'Ink 3'],
-  ['signal', 'Mint'], ['mint-deep', 'Mint deep'], ['teal', 'Teal'], ['ocean', 'Ocean'], ['warn', 'Warning'], ['bad', 'Danger'], ['info', 'Info'],
+/**
+ * The token sheet mirrors globals.css: token names are stable across themes,
+ * only the values change. Brand book names (Midnight Navy, Deep Ocean Blue,
+ * Neo Mint, Slate Grey, Pure White) are written out here; the hex values live
+ * in globals.css only.
+ */
+type Token = { token: string; label: string; role: string }
+type TokenGroup = { title: string; note: string; tokens: Token[] }
+
+const TOKEN_GROUPS: TokenGroup[] = [
+  {
+    title: 'Surfaces',
+    note: 'Midnight Navy is the ground. Deep Ocean Blue is the plate for hero bands and the start-here block. Light swaps to near-white and white.',
+    tokens: [
+      { token: 'background', label: 'Ground', role: 'The page.' },
+      { token: 'card', label: 'Surface', role: 'Cards, popovers, the stamp.' },
+      { token: 'surface-2', label: 'Surface 2', role: 'Inputs, chips, segmented controls.' },
+      { token: 'accent', label: 'Hover', role: 'Hover fills.' },
+      { token: 'plate', label: 'Plate', role: 'Deep Ocean Blue panels; type is plate-foreground.' },
+    ],
+  },
+  {
+    title: 'Ink',
+    note: 'Pure White on navy, three steps down. Ink 3 clears 4.5:1 on every text surface: background, card, surface 2 and plate.',
+    tokens: [
+      { token: 'foreground', label: 'Ink', role: 'Body and headings.' },
+      { token: 'ink-2', label: 'Ink 2', role: 'Secondary text.' },
+      { token: 'ink-3', label: 'Ink 3', role: 'Muted text and eyebrows.' },
+    ],
+  },
+  {
+    title: 'Mint',
+    note: 'Neo Mint is the one colour for anything that moves money. Navy type on mint, never white. In the light theme signal shifts to teal so it holds 5.4:1 on white.',
+    tokens: [
+      { token: 'primary', label: 'Primary', role: 'The CTA fill, with primary-foreground.' },
+      { token: 'signal', label: 'Signal', role: 'Links, active states, icons that move money.' },
+      { token: 'signal-deep', label: 'Signal deep', role: 'Emphasised numbers and links.' },
+      { token: 'signal-tint', label: 'Signal tint', role: 'Selected-state fills.' },
+    ],
+  },
+  {
+    title: 'State',
+    note: 'Colour carries meaning and the label carries it too. Each has a matching -tint for fills.',
+    tokens: [
+      { token: 'ok', label: 'Success', role: 'Settled, solvent, healthy.' },
+      { token: 'warn', label: 'Warning', role: 'Paused, degraded.' },
+      { token: 'bad', label: 'Danger', role: 'Failed, shortfall.' },
+      { token: 'info', label: 'Info', role: 'In progress, attesting.' },
+    ],
+  },
+  {
+    title: 'Lines',
+    note: 'Hairlines are white at low alpha on dark and navy at low alpha on light, so they never need a theme branch.',
+    tokens: [
+      { token: 'border', label: 'Border', role: 'Card and input hairlines.' },
+      { token: 'line-2', label: 'Line 2', role: 'Dividers and stronger hairlines.' },
+    ],
+  },
+  {
+    title: 'Charts',
+    note: 'Admin charts only: mint, ocean-blue tint, ink, amber, Slate Grey.',
+    tokens: [
+      { token: 'chart-1', label: 'Chart 1', role: 'Exchange on Arc.' },
+      { token: 'chart-2', label: 'Chart 2', role: 'Bridged in.' },
+      { token: 'chart-3', label: 'Chart 3', role: 'Neutral series.' },
+      { token: 'chart-4', label: 'Chart 4', role: 'Bridged out.' },
+      { token: 'chart-5', label: 'Chart 5', role: 'Payments, baselines.' },
+    ],
+  },
 ]
 
 const STEPS: Step[] = [
@@ -47,26 +114,79 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
+function Swatch({ token, label, role }: Token) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="h-12 border-b border-border" style={{ background: `var(--${token})` }} />
+      <div className="px-2.5 py-1.5 text-[12px]">
+        <div className="font-semibold">{label}</div>
+        <div className="font-mono text-ink-3">--{token}</div>
+        <div className="mt-1 text-ink-2">{role}</div>
+      </div>
+    </div>
+  )
+}
+
 export function DesignClient() {
   const [on, setOn] = useState(true)
   const [stampKey, setStampKey] = useState(0)
   return (
     <div className="mx-auto max-w-[1120px] px-4 py-10 sm:px-5">
       <PageHeader
-        eyebrow="Internal · design system v2"
+        eyebrow="Internal · design system v3"
         title="Every token and component, in every state."
-        description="Light-first, one accent, numbers first. Toggle the theme from the header to check both."
-        actions={<Mark className="h-8 text-signal" />}
+        description="Dark by default, mint for anything that moves money, numbers first. Toggle the theme from the footer to check both."
+        actions={<Mark className="h-8" fill="brand" />}
       />
 
+      <Section title="Brand">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <figure className="m-0">
+            <div className="flex h-28 items-center justify-center gap-3 rounded-xl border border-border bg-card">
+              <Mark className="h-7" fill="brand" />
+              <Wordmark decorative className="h-[18px] w-auto text-foreground" />
+            </div>
+            <figcaption className="mt-1.5 text-[12px] text-ink-3">On a surface: gradient mark, wordmark in ink.</figcaption>
+          </figure>
+          <figure className="m-0">
+            <div className="bg-brand flex h-28 items-center justify-center gap-3 rounded-xl text-plate-foreground">
+              <Mark className="h-7" />
+              <Wordmark decorative className="h-[18px] w-auto" />
+            </div>
+            <figcaption className="mt-1.5 text-[12px] text-ink-3">On the brand gradient (.bg-brand): white.</figcaption>
+          </figure>
+          <figure className="m-0">
+            <div className="flex h-28 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <Mark className="h-9" />
+            </div>
+            <figcaption className="mt-1.5 text-[12px] text-ink-3">On Neo Mint (primary, both themes): navy mark, never white.</figcaption>
+          </figure>
+          <figure className="m-0">
+            <div className="flex h-28 items-center justify-center rounded-xl bg-plate text-primary">
+              <Mark className="h-9" />
+            </div>
+            <figcaption className="mt-1.5 text-[12px] text-ink-3">On Deep Ocean Blue: mint mark, as on the app icon tile.</figcaption>
+          </figure>
+        </div>
+        <p className="mt-3 max-w-[72ch] text-[13px] text-ink-3">
+          The mark takes the brand gradient (Deep Ocean Blue to teal to Neo Mint) through fill=&quot;brand&quot;, otherwise currentColor. The wordmark is the Power Grotesk
+          outlines from the brand file, placed as paths and never a webfont; it only appears next to the mark. Logo.tsx holds the only raw gradient stops; everything else uses
+          .bg-brand, which is for the mark, the hero watermark and tile icon backgrounds only.
+        </p>
+      </Section>
+
       <Section title="Colour">
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-2">
-          {TOKENS.map(([t, label]) => (
-            <div key={t} className="overflow-hidden rounded-lg border border-border bg-card">
-              <div className="h-12" style={{ background: `var(--${t})` }} />
-              <div className="px-2.5 py-1.5 text-[12px]">
-                <div className="font-semibold">{label}</div>
-                <div className="font-mono text-ink-3">--{t}</div>
+        <div className="grid gap-8">
+          {TOKEN_GROUPS.map((g) => (
+            <div key={g.title}>
+              <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="text-[14px] font-semibold">{g.title}</h3>
+                <p className="max-w-[72ch] text-[13px] text-ink-3">{g.note}</p>
+              </div>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-2">
+                {g.tokens.map((t) => (
+                  <Swatch key={t.token} {...t} />
+                ))}
               </div>
             </div>
           ))}
@@ -75,10 +195,14 @@ export function DesignClient() {
 
       <Section title="Type">
         <div className="rounded-xl border border-border bg-card p-6 shadow-card">
-          <div className="type-display text-[clamp(40px,6vw,64px)]">Make money feel <em className="text-signal-deep">instant.</em></div>
-          <p className="mt-3 max-w-[64ch] text-ink-2">Interface in Instrument Sans at 15 px. Headings balance-wrapped, paragraphs pretty-wrapped. Sentence case everywhere, including buttons.</p>
+          <div className="type-display text-[clamp(40px,6vw,64px)]">Make money feel <em>instant.</em></div>
+          <p className="mt-3 max-w-[64ch] text-ink-2">
+            Display is Manrope 800 with tight tracking (.type-display). An em inside it renders upright in mint: the one word that moves money, not emphasis. Interface is
+            Manrope at 15 px. Headings balance-wrapped, paragraphs pretty-wrapped. Sentence case everywhere, including buttons.
+          </p>
           <p className="mt-2 font-mono text-[14px]">250.00 USDC → 229.70 EURC · fee $0.004 · 0x47d4…af0a · settled in 0.41 s</p>
-          <div className="type-eyebrow mt-4">Eyebrow · mono uppercase</div>
+          <p className="mt-1 text-[13px] text-ink-3">Data is Geist Mono: amounts, addresses, hashes, durations, tabular figures.</p>
+          <div className="type-eyebrow mt-4">Eyebrow · mono, sentence case</div>
         </div>
       </Section>
 

@@ -121,7 +121,7 @@ export function AdminClient({ handle, dev }: { handle: string; dev: boolean }) {
             ['custom', 'Custom'],
           ] as const
         ).map(([k, l]) => (
-          <button key={k} type="button" onClick={() => setPreset(k)} aria-pressed={preset === k} className={cn('h-8 rounded-md border px-3 text-[13px] font-medium outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50', preset === k ? 'border-foreground bg-foreground text-background' : 'border-border bg-card text-ink-2 hover:text-foreground')}>
+          <button key={k} type="button" onClick={() => setPreset(k)} aria-pressed={preset === k} className={cn('h-8 rounded-md border px-3 text-[13px] font-medium outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/80', preset === k ? 'border-foreground bg-foreground text-background' : 'border-border bg-card text-ink-2 hover:text-foreground')}>
             {l}
           </button>
         ))}

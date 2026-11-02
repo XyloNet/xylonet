@@ -90,7 +90,7 @@ export function PointsView() {
 
       <p className="mt-2 text-[14px] text-ink-2">
         One point for every dollar you move on Arc, computed from public data.{' '}
-        <Link href="/docs/points" className="text-signal-deep underline-offset-4 hover:underline">
+        <Link href="/docs/points" className="text-signal-deep underline underline-offset-4 decoration-current/60 hover:decoration-current">
           How points work
         </Link>
       </p>

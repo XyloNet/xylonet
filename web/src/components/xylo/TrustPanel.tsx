@@ -41,7 +41,7 @@ export function TrustPanel({ rows, note, summary, className }: { rows: TrustRow[
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={id}
-          className="flex w-full items-center justify-between border-t border-dashed border-line-2 px-4 py-2 text-[12.5px] text-ink-3 outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50"
+          className="flex w-full items-center justify-between border-t border-dashed border-line-2 px-4 py-2 text-[12.5px] text-ink-3 outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/80"
         >
           <span>{open ? 'Fewer details' : `Details (${hidden} more)`}</span>
           <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />

@@ -29,11 +29,7 @@ export default async function TrustPage() {
     <div className="mx-auto max-w-[1120px] px-4 pb-16 pt-8 sm:px-5 md:pt-10">
       <PageHeader
         eyebrow="Trust · read live from Arc"
-        title={
-          <>
-            XyloNet never holds your funds. <em className="text-signal-deep">Verify it.</em>
-          </>
-        }
+        title="XyloNet never holds your funds. Verify it."
         description={`Everything on this page is read from the chain and the services XyloNet depends on${t ? `, last at ${formatDateTime(t.fetchedAt)}` : ''}. Nothing here is typed in by us.`}
       />
 

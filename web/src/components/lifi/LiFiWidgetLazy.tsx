@@ -6,9 +6,10 @@ import type { LiFiMode } from '@/lib/lifi/config'
 import { Skeleton } from '@/components/ui/skeleton'
 
 /** What the widget looks like before its code arrives: the same shape, quiet. */
-export function WidgetPlaceholder({ minHeight = 520 }: { minHeight?: number }) {
+export function WidgetPlaceholder({ minHeight = 520, label = 'Loading exchange' }: { minHeight?: number; label?: string }) {
   return (
-    <div className="grid gap-3 p-4" style={{ minHeight }} aria-busy="true" aria-label="Loading exchange">
+    <div className="grid gap-3 p-4" style={{ minHeight }} role="status" aria-busy="true">
+      <span className="sr-only">{label}</span>
       <Skeleton className="h-5 w-24" />
       <Skeleton className="h-24 rounded-xl" />
       <Skeleton className="h-24 rounded-xl" />
