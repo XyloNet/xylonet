@@ -1,5 +1,5 @@
 import 'server-only'
-import { decodeEventLog, type Address, type Hex } from 'viem'
+import { createPublicClient, decodeEventLog, http, type Address, type Hex, type PublicClient } from 'viem'
 import { PayXTippingABI } from '@/config/abis/PayXTipping'
 import { PAYX_ASSETS, PAYX_ASSET_KEYS, type PayXAssetKey } from '@/config/constants'
 import { getServerPayXAddressFor } from './env'
@@ -41,11 +41,35 @@ export interface TipReceipt {
   message: string
 }
 
+/**
+ * Public Arc RPCs that keep receipts for older transactions. The primary
+ * provider answers `null` for a receipt once it is a few days old, and viem's
+ * fallback transport only moves on after an error, never after a null, so an
+ * older payment's receipt page (and the QR on its card) turned into a 404.
+ */
+const RECEIPT_ARCHIVE_RPCS = ['https://rpc.mainnet.arc.io', 'https://arc.drpc.org', 'https://5042.rpc.thirdweb.com']
+let archiveClients: PublicClient[] | null = null
+function getReceiptArchiveClients(): PublicClient[] {
+  if (!archiveClients) {
+    archiveClients = RECEIPT_ARCHIVE_RPCS.map((u) => createPublicClient({ transport: http(u, { timeout: 8_000, retryCount: 0 }) }))
+  }
+  return archiveClients
+}
+
 /** Decodes the TipSent event out of a transaction receipt. Null if it is not a PayX payment. */
 export async function readTipReceipt(txHash: Hex): Promise<TipReceipt | null> {
   if (!isRpcConfigured()) return null
-  const client = getPayXPublicClient()
-  const receipt = await client.getTransactionReceipt({ hash: txHash }).catch(() => null)
+  let client = getPayXPublicClient()
+  let receipt = await client.getTransactionReceipt({ hash: txHash }).catch(() => null)
+  if (!receipt) {
+    for (const archive of getReceiptArchiveClients()) {
+      receipt = await archive.getTransactionReceipt({ hash: txHash }).catch(() => null)
+      if (receipt) {
+        client = archive
+        break
+      }
+    }
+  }
   if (!receipt || receipt.status !== 'success') return null
   const instances = new Map<string, PayXAssetKey>()
   for (const key of PAYX_ASSET_KEYS) {
